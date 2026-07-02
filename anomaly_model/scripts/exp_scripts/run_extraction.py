@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 # anomaly_model/scripts/ -> repo root
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 TARGET = REPO_ROOT / "scripts" / "extract_anomaly_per_sim.py"
 
 if not TARGET.exists():

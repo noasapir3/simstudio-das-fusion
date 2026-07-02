@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="submissions/Fiber_LOGO.png" alt="Optical Fibers for Smart Cities logo" width="220"/>
+</p>
+
 # Optical Fibers for Smart Cities
 
 **IoT-Enabled Fiber-Optic Sensing for Real-Time Vehicle Tracking and Road-Anomaly Detection**
@@ -548,7 +552,8 @@ optical-fibers-smart-cities/
 │   ├── feature_extractor.py    #   Trajectory → 166-feature fingerprint
 │   ├── cusum_detector.py       #   Temporal NIS_x onset detector (Page's CUSUM)
 │   ├── scripts/
-│   │   └── scenario_scorer.py  #   Z-score · Isolation-Forest · RandomForest
+│   │   ├── scenario_scorer.py  #   Z-score · Isolation-Forest · RandomForest
+│   │   └── exp_scripts/        #   Experiment runners (batch simulate + extract)
 │   ├── simulations/            #   Normal + 9 injected-anomaly scenarios
 │   ├── outputs/                #   Feature tables · models · scores
 │   └── docs/                   #   Anomaly-model flow + intel guide

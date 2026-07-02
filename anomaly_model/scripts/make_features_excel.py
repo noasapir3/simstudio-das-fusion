@@ -639,7 +639,7 @@ def make_excel(input_path: Path, output_path: Path) -> None:
 
     if not input_path.exists():
         print(f"\n[ERROR] Input CSV not found: {input_path}")
-        print("Run `python anomaly_model/run_extraction.py` first.")
+        print("Run `python anomaly_model/scripts/exp_scripts/run_extraction.py` first.")
         sys.exit(1)
 
     print("  Reading CSV …", end="", flush=True)

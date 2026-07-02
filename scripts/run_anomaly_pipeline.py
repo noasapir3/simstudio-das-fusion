@@ -4,7 +4,7 @@ run_anomaly_pipeline.py
 ═══════════════════════════════════════════════════════════════════════════════
 One-shot pipeline:
   Step 1 — Run every anomaly .sim.json through the SimStudio engine headlessly
-            (same as  anomaly_model/scripts/run_anomaly_simulations.py)
+            (same as  anomaly_model/scripts/exp_scripts/run_anomaly_simulations.py)
   Step 2 — Extract features from each new export folder and write
             features.csv into the matching anomaly sub-folder
             (same as  extract_anomaly_per_sim.py  --overwrite)

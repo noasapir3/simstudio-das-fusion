@@ -35,7 +35,7 @@ echo ""
 
 # Step 1: Re-extract normal features (forces complete re-extraction)
 echo "[1/2] Re-extracting normal features (this takes 20–40 min) ..."
-python3 anomaly_model/scripts/run_extraction.py --no-resume
+python3 anomaly_model/scripts/exp_scripts/run_extraction.py --no-resume
 echo ""
 
 # Step 2: Rebuild model_live.pkl from fresh features_normal.csv

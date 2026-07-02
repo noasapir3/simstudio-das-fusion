@@ -15,7 +15,7 @@ REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 cd "$REPO_ROOT"
 
 OUT="$REPO_ROOT/anomaly_model/outputs"
-SCRIPT="$REPO_ROOT/anomaly_model/scripts/run_extraction.py"
+SCRIPT="$REPO_ROOT/anomaly_model/scripts/exp_scripts/run_extraction.py"
 LOGS="$OUT/extraction_logs"
 mkdir -p "$LOGS"
 
