@@ -592,7 +592,8 @@ optical-fibers-smart-cities/
 │   └── install.sh              #   First-time setup script (macOS)
 ├── outputs/                    # Sample trajectories · audit reports · workbooks
 ├── tests/                      # Pytest suite (sim · kalman · tracker · export · geometry)
-├── submissions/                # Report · poster · work plan · physical-models reference
+├── submissions/                # Report (final + drafts) · poster · work plan · physical-models reference
+├── data/                       # Reference papers and prior work (external reports)
 ├── Optical Fiber SIM.app/      # Packaged macOS application
 ├── pyproject.toml              # Installation + packaging
 └── README.md · CHANGELOG.md   # This file + version history
