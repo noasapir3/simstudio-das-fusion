@@ -42,7 +42,7 @@ Students: Noa Sapir, Nitai Dobrecki · Instructor: Khen Cohen · 2025–2026
 | Cross-street tracking accuracy | ≥ 90% | **Sub-meter RMSE** (0.35 m mean, 0.49 m representative cross-segment track) |
 | Anomaly detection | ≥ 5 / 10 | **6 of 9** injected anomalies detected |
 | Position tolerance | ≤ ±5 m | Max error **1.52 m** |
-| Real-world validation | — | Klausner St. bus-stop event tracked at **0.23 m RMSE from DAS alone** |
+| Real-world validation | — | Real Klausner St. DAS + camera recording fused at **1.17 m RMSE** through the unchanged pipeline |
 
 ---
 
@@ -497,17 +497,18 @@ The 0.49 m RMSE was achieved on a vehicle tracked across a segment boundary whil
 
 Beyond simulation, the pipeline was exercised on a **real DAS + camera recording** taken on Klausner Street, beside the Tel Aviv University campus. The recording captured everyday urban traffic, including a clearly identifiable signature — a city bus decelerating to a halt at a bus stop — isolated from the raw DAS trace as event #4.
 
-Two runs were performed:
+The recorded event was replayed through the exact pipeline used in simulation — DAS event #4 fused with a co-located camera on the true Klausner Street geometry:
 
-| Quantity | DAS-only reconstruction | Real DAS event #4 + camera |
-|---|---|---|
-| Sensors fused | DAS only (245 meas.) | DAS + camera (84 + 30 meas.) |
-| Track position RMSE vs. ground truth | **0.23 m** | 1.17 m |
-| DAS per-sensor error (RMSE) | — (reconstructed) | 0.33 m (bias ≈ 0) |
-| Camera per-sensor error (RMSE) | — | 2.49 m |
-| Prediction-only rows | 49.2% | 42.1% |
+| Quantity | Real DAS event #4 + camera |
+|---|---|
+| Sensors fused | DAS + camera (84 + 30 meas.) |
+| Track position RMSE vs. ground truth | **1.17 m** |
+| DAS per-sensor error (RMSE) | 0.33 m (bias ≈ 0) |
+| Camera per-sensor error (RMSE) | 2.49 m |
+| Prediction-only rows | 42.1% |
+| Track duration | 41.8 s |
 
-The DAS-only reconstruction tracked the bus through a complete stop at sub-meter accuracy — coasting on prediction for 49% of the run during the dwell yet never losing the track — supporting the fidelity of the Flamant–Boussinesq strain model and the SNR-driven noise model. The mixed real run surfaced exactly the failure mode the design anticipates: an optical sensor reporting tighter uncertainty than it deserves (camera reported σ ≈ 0.2 m but measured RMSE 2.49 m), degrading the fused estimate — pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
+The filter tracked the bus through a complete stop at meter-level accuracy — well within the project's ±5 m tolerance — running on prediction alone for 42% of the run, including gaps of up to 4 s. The per-sensor breakdown is instructive: the DAS channel was highly accurate, while the camera's measured error far exceeded its reported σ ≈ 0.2 m — surfacing exactly the failure mode the design anticipates (an over-confident optical sensor) and pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
 
 ---
 
