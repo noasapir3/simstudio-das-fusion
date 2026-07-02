@@ -508,7 +508,7 @@ The recorded event was replayed through the exact pipeline used in simulation, w
 | Prediction-only rows | 42.1% |
 | Track duration | 41.8 s |
 
-The filter tracked the bus through a complete stop at meter-level accuracy, well within the project's ±5 m tolerance, running on prediction alone for 42% of the run, including gaps of up to 4 s. The per-sensor breakdown is instructive: the DAS channel was highly accurate, while the camera's measured error far exceeded its reported σ ≈ 0.2 m, surfacing exactly the failure mode the design anticipates (an over-confident optical sensor) and pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
+The filter tracked the bus through a complete stop at meter-level accuracy, well within the project's ±5 m tolerance, running on prediction alone for 42% of the run, including gaps of up to 4 s. The per-sensor breakdown is instructive: the DAS channel was highly accurate, while the camera's measured error far exceeded its reported σ ≈ 0.2 m, surfacing exactly the failure mode the design anticipates (an over-confident optical sensor) and pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report.pdf).
 
 ---
 
