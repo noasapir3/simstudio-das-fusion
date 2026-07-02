@@ -1,0 +1,73 @@
+{
+  "scenario_id": "klausner_bus_stop_demo",
+  "description": "Bus stops at bus stop on Klausner St (ch323-324) — reconstructed from DAS event #4",
+  "vehicles": {
+    "bus_klausner_1": {
+      "id": "bus_klausner_1",
+      "weight_kg": 12000.0,
+      "object_type": "bus",
+      "lane_id": "klausner_seg1_fwd_lane1",
+      "v": 8.0
+    }
+  },
+  "das": {
+    "das_klausner": {
+      "id": "das_klausner",
+      "segment_id": "klausner_seg1",
+      "fiber_offset_m": 1.8,
+      "d0_m": 0.7,
+      "snr_th": 8.0,
+      "channel_start": 260,
+      "channel_end": 370
+    }
+  },
+  "nodes": {
+    "kn1": {
+      "x": -46.300000000000004,
+      "y": 85.0
+    },
+    "kn2": {
+      "x": -46.300000000000004,
+      "y": -15.0
+    }
+  },
+  "segments": {
+    "klausner_seg1": {
+      "id": "klausner_seg1",
+      "n0": "kn1",
+      "n1": "kn2",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.88888888888889,
+      "points": [
+        [
+          -46.300000000000004,
+          85.0
+        ],
+        [
+          -46.300000000000004,
+          -15.0
+        ]
+      ],
+      "one_way": false,
+      "traffic_level": "medium"
+    }
+  },
+  "lanes": {
+    "klausner_seg1_fwd_lane1": {
+      "id": "klausner_seg1_fwd_lane1",
+      "segment_id": "klausner_seg1",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -46.300000000000004,
+          85.0
+        ],
+        [
+          -46.300000000000004,
+          -15.0
+        ]
+      ]
+    }
+  }
+}

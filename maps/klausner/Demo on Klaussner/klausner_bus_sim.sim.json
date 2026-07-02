@@ -1,0 +1,149 @@
+{
+  "nodes": {
+    "kn_south": {
+      "x": -46.300000000000004,
+      "y": 85.0
+    },
+    "kn_north": {
+      "x": -46.300000000000004,
+      "y": -17.0
+    }
+  },
+  "segments": {
+    "klausner_north_south": {
+      "id": "klausner_north_south",
+      "n0": "kn_south",
+      "n1": "kn_north",
+      "lanes": 2,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.8889,
+      "points": [
+        [
+          -46.300000000000004,
+          85.0
+        ],
+        [
+          -46.300000000000004,
+          26.48
+        ],
+        [
+          -46.300000000000004,
+          -17.0
+        ]
+      ],
+      "one_way": false,
+      "traffic_level": "medium"
+    }
+  },
+  "lanes": {
+    "klausner_north_south_fwd_lane1": {
+      "id": "klausner_north_south_fwd_lane1",
+      "segment_id": "klausner_north_south",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -46.300000000000004,
+          85.0
+        ],
+        [
+          -46.300000000000004,
+          26.48
+        ],
+        [
+          -46.300000000000004,
+          -17.0
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "bus_klausner_1": {
+      "id": "bus_klausner_1",
+      "lane_id": "klausner_north_south_fwd_lane1",
+      "s": 2.0,
+      "v": 8.0,
+      "a_long_mps2": 0.0,
+      "weight_kg": 12000.0,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 8.0,
+      "speed_std_mps": 0.5,
+      "speed_min_mps": 0.0,
+      "speed_max_mps": 8.0,
+      "target_speed_mps": 8.0,
+      "disable_idm": true,
+      "min_gap_m": 0.0,
+      "time_headway_s": 0.0,
+      "a_cmd_override_mps2": -6.0,
+      "a_cmd_override_until_t": 8.0,
+      "speed_change_interval_mean_s": 1000000000.0,
+      "speed_change_interval_min_s": 1000000000.0,
+      "speed_change_interval_max_s": 1000000000.0,
+      "next_speed_change_t": 1000000000.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 1.0,
+      "accel_response_s": 2.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 4.0,
+      "heading_rad": -1.5707963267948966,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0,
+      "ignore_speed_limit": false,
+      "frozen": false,
+      "allow_collision": false,
+      "lateral_mode": "ou",
+      "lateral_fixed_offset_m": 0.0,
+      "lateral_weave_amplitude_m": 0.0,
+      "lateral_weave_period_s": 0.0,
+      "lateral_weave_phase_rad": 0.0,
+      "lateral_window_start_t": 0.0,
+      "lateral_window_until_t": 0.0,
+      "lateral_drift_rate_mps": 0.0,
+      "lateral_random_sigma_m": 0.0,
+      "lateral_random_seed": 0,
+      "object_type": "bus"
+    }
+  },
+  "gps": {},
+  "cameras": {
+    "cam_klausner_south": {
+      "id": "cam_klausner_south",
+      "x": -46.300000000000004,
+      "y": 80.0,
+      "heading_rad": -1.5707963267948966,
+      "fov_deg": 35.0,
+      "range_m": 180.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das_klausner_east": {
+      "id": "das_klausner_east",
+      "segment_id": "klausner_north_south",
+      "channel_start": 260,
+      "channel_end": 370,
+      "update_hz": 10.0,
+      "noise_std": 25.0,
+      "fiber_offset_m": 1.8,
+      "d0_m": 0.7
+    }
+  },
+  "_meta": {
+    "description": "Klausner St bus stop — reconstructed from DAS event #4 (08:35:40)",
+    "anchor_channel": 332,
+    "anchor_lat": 32.111343,
+    "anchor_lon": 34.8074897,
+    "anchor_x_m": -48.1,
+    "anchor_y_m": 17.48,
+    "fiber_side": "east",
+    "origin_lat": 32.1115,
+    "origin_lon": 34.808,
+    "bus_stop_channel": 323,
+    "bus_stop_y_m": 26.48,
+    "approach_speed_mps": 8.0,
+    "stop_duration_s": 26.0,
+    "depart_speed_mps": 3.5,
+    "t_stop_start_s": 6.5,
+    "t_depart_start_s": 32.5,
+    "bus_weight_kg": 12000.0
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "nodes": {
+    "n193": {
+      "x": -80.95603414331568,
+      "y": 197.13845177104642
+    },
+    "n77": {
+      "x": -69.98373481640303,
+      "y": 206.5449487430581
+    },
+    "n76": {
+      "x": -69.98373481640303,
+      "y": 197.1941115163025
+    }
+  },
+  "segments": {
+    "seg153": {
+      "id": "seg153",
+      "n0": "n193",
+      "n1": "n77",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [
+        [
+          -80.95603414331568,
+          197.13845177104642
+        ],
+        [
+          -81.0032065392702,
+          206.52268484463923
+        ],
+        [
+          -69.98373481640303,
+          206.5449487430581
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg154": {
+      "id": "seg154",
+      "n0": "n76",
+      "n1": "n193",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [
+        [
+          -69.98373481640303,
+          197.1941115163025
+        ],
+        [
+          -80.95603414331568,
+          197.13845177104642
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg62": {
+      "id": "seg62",
+      "n0": "n76",
+      "n1": "n77",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [
+        [
+          -69.98373481640303,
+          197.1941115163025
+        ],
+        [
+          -69.98373481640303,
+          206.5449487430581
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "seg62_fwd_lane1": {
+      "id": "seg62_fwd_lane1",
+      "segment_id": "seg62",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -69.98373481640303,
+          197.1941115163025
+        ],
+        [
+          -69.98373481640303,
+          206.5449487430581
+        ]
+      ]
+    },
+    "seg153_fwd_lane1": {
+      "id": "seg153_fwd_lane1",
+      "segment_id": "seg153",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -80.95603414331568,
+          197.13845177104642
+        ],
+        [
+          -81.0032065392702,
+          206.52268484463923
+        ],
+        [
+          -69.98373481640303,
+          206.5449487430581
+        ]
+      ]
+    },
+    "seg154_fwd_lane1": {
+      "id": "seg154_fwd_lane1",
+      "segment_id": "seg154",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -69.98373481640303,
+          197.1941115163025
+        ],
+        [
+          -80.95603414331568,
+          197.13845177104642
+        ]
+      ]
+    }
+  },
+  "vehicles": {},
+  "gps": {
+    "gps1": {
+      "id": "gps1",
+      "x": -80.185637,
+      "y": 206.524337,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 25.0
+    },
+    "gps2": {
+      "id": "gps2",
+      "x": -75.469884,
+      "y": 197.166282,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 25.0
+    },
+    "gps3": {
+      "id": "gps3",
+      "x": -69.983735,
+      "y": 201.86953,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 25.0
+    }
+  },
+  "cameras": {
+    "cam1": {
+      "id": "cam1",
+      "x": -80.956034,
+      "y": 197.138452,
+      "heading_rad": 1.575823,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    },
+    "cam2": {
+      "id": "cam2",
+      "x": -69.983735,
+      "y": 197.194112,
+      "heading_rad": -3.13652,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    },
+    "cam3": {
+      "id": "cam3",
+      "x": -69.983735,
+      "y": 197.194112,
+      "heading_rad": 1.570796,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "seg153",
+      "channel_start": 0,
+      "channel_end": 21,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    },
+    "das2": {
+      "id": "das2",
+      "segment_id": "seg154",
+      "channel_start": 0,
+      "channel_end": 11,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    },
+    "das3": {
+      "id": "das3",
+      "segment_id": "seg62",
+      "channel_start": 0,
+      "channel_end": 10,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "boundary_exit_nodes": [
+    "n76",
+    "n77"
+  ]
+}
