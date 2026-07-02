@@ -86,7 +86,7 @@ src/simstudio/
 anomaly_model/
 ├── feature_extractor.py     Trajectory → 166-feature behavioral fingerprint
 ├── cusum_detector.py        Page's CUSUM on NIS_x (temporal onset detector)
-└── scripts/scenario_scorer.py   Z-score + Isolation Forest + RandomForest scoring
+└── scripts/scenario_scorer.py   Per-feature Z-score scoring (numpy-only)
 ```
 
 All inter-module communication flows through the EventBus. The simulator is the only publisher; the tracker, Kalman filter, and GUI are all consumers. This keeps dependencies acyclic and means any component can be replaced or tested in isolation.
@@ -376,9 +376,9 @@ If W_est differs from the declared weight by more than 50%, a `das_weight_anomal
 
 **Inter-vehicle features** compute the minimum distance to any other vehicle, minimum time-to-collision, maximum relative speed at closest approach, and a collision risk proxy (`max(Δv² / dist)`). A collision event flag (`iv_collision_detected`) produces Z-scores in the thousands when triggered, making collision detection effectively certain.
 
-### 8.2 CUSUM Temporal Detector
+### 8.2 Supplementary Temporal Diagnostic — CUSUM
 
-`cusum_detector.py` implements **Page's one-sided CUSUM** on the NIS_x time series. The CUSUM statistic accumulates evidence that NIS_x exceeds a reference level k, and raises an alarm when it crosses a threshold h:
+Alongside the Z-score classifier, `cusum_detector.py` implements **Page's one-sided CUSUM** on the NIS_x time series as a supplementary diagnostic (surfaced in the desktop GUI's Anomaly Intel tab); it is not part of the trajectory-level classification. The CUSUM statistic accumulates evidence that NIS_x exceeds a reference level k, and raises an alarm when it crosses a threshold h:
 
 ```
 S_t = max(0,  S_{t-1} + NIS_x(t) − k)
@@ -401,7 +401,7 @@ vehicle flagged if anomaly_score > threshold  (≈ 15.4 σ)
 
 The threshold was chosen as the 99th percentile of `max_z` across all vehicles in the normal training corpus, giving a false-positive rate of ~1% on clean scenarios. The scorer also reports the **top contributing feature** — the single feature whose Z-score is largest — making each detection interpretable. A traffic operator can see not just "this vehicle was flagged" but "it was flagged because its maximum jerk was 14.2 standard deviations above the normal mean."
 
-**Why Z-score and not Isolation Forest?** Isolation Forest was the original detection method but was replaced by the Z-score baseline for three reasons: it is fully interpretable (each feature's contribution is explicit); it requires no sklearn dependency, making the model portable as a numpy array; and on our dataset the Z-score outperformed Isolation Forest because the anomaly features have well-separated distributions from normal. Isolation Forest and Random Forest remain supported as alternatives in `scenario_scorer.py`.
+**Why Z-score and not Isolation Forest?** Isolation Forest was the original detection method but was replaced by the Z-score baseline for three reasons: it is fully interpretable (each feature's contribution is explicit); it requires no sklearn dependency, making the model portable as a numpy array; and on our dataset the Z-score outperformed Isolation Forest because the anomaly features have well-separated distributions from normal. Isolation Forest has since been removed from the scorer entirely; the shipped model is a pure-numpy Z-score baseline.
 
 ---
 
@@ -577,7 +577,7 @@ optical-fibers-smart-cities/
 │   ├── feature_extractor.py    #   Trajectory → 166-feature fingerprint
 │   ├── cusum_detector.py       #   Temporal NIS_x onset detector (Page's CUSUM)
 │   ├── scripts/
-│   │   ├── scenario_scorer.py  #   Z-score · Isolation-Forest · RandomForest
+│   │   ├── scenario_scorer.py  #   Per-feature Z-score scoring (numpy-only)
 │   │   └── exp_scripts/        #   Experiment runners (batch simulate + extract)
 │   ├── simulations/            #   Normal + 9 injected-anomaly scenarios
 │   ├── outputs/                #   Feature tables · models · scores
@@ -667,11 +667,9 @@ pytest -q
 
 [6] E. S. Page, "Continuous Inspection Schemes," *Biometrika*, vol. 41, no. 1–2, pp. 100–115, 1954.
 
-[7] F. T. Liu, K. M. Ting, and Z.-H. Zhou, "Isolation Forest," *Proc. IEEE Int. Conf. on Data Mining (ICDM)*, pp. 413–422, 2008.
+[7] G. Welch and G. Bishop, "An Introduction to the Kalman Filter," University of North Carolina at Chapel Hill.
 
-[8] G. Welch and G. Bishop, "An Introduction to the Kalman Filter," University of North Carolina at Chapel Hill.
-
-[9] OpenStreetMap contributors. https://www.openstreetmap.org
+[8] OpenStreetMap contributors. https://www.openstreetmap.org
 
 ---
 
