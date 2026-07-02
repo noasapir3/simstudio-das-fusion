@@ -1,0 +1,101 @@
+feature_name,description
+scenario_id,Folder name or user-supplied scenario label
+global_track_id,Track ID (e.g. T000001)
+vehicle_id_oracle,Ground-truth vehicle identifier
+sc_n_vehicles,Number of vehicles in the scenario
+sc_n_frozen,Vehicles with frozen=True (stalled/obstacle)
+sc_n_speeding,Vehicles with ignore_speed_limit=True
+sc_n_collision,Vehicles with allow_collision=True
+sc_n_weaving,Vehicles with lateral_mode='weave'
+sc_n_straddling,Vehicles with lateral_mode='straddle'
+sc_n_braking_override,Vehicles with a_cmd_override_mps2 < -2
+sc_n_tailgating,Vehicles with min_gap_m < 1.5 m
+sc_weight_kg_list,Comma-separated list of vehicle weights [kg]
+sc_speed_limit_mps,Min speed limit across segments [m/s]
+sc_has_das,"1 if DAS sensors present, else 0"
+sc_das_fiber_offset_m,DAS fiber lateral offset from road [m]
+sc_das_d0_m,DAS singularity floor d0 [m]
+sc_das_noise_std,DAS trace noise standard deviation
+sc_das_snr_th,SNR threshold (traffic-level dependent)
+sc_anomaly_type,Heuristic anomaly label from JSON flags
+kin_speed_mean_mps,Mean estimated speed [m/s]
+kin_speed_max_mps,Max estimated speed [m/s]
+kin_speed_std_mps,Std dev of estimated speed [m/s]
+kin_speed_over_limit_frac,Fraction of timesteps where speed > speed_limit × 1.05
+kin_accel_mean_abs_mps2,Mean absolute acceleration magnitude [m/s²]
+kin_accel_max_abs_mps2,Max absolute acceleration magnitude [m/s²]
+kin_accel_std_mps2,Std dev of acceleration magnitude [m/s²]
+kin_phys_impossible_v,Rows where estimated speed > 40 m/s
+kin_phys_impossible_a,Rows where estimated accel > 8 m/s²
+kin_lateral_dev_mean_m,Mean lateral deviation of y_hat from its mean [m]
+kin_lateral_dev_max_m,Max lateral deviation of y_hat [m]
+kin_lateral_dev_std_m,Std dev of lateral deviation [m]
+kin_lateral_oscillation_ratio,std(lat_dev) / mean(lat_dev): high = weaving
+kf_pos_err_mean_m,Mean position error vs ground truth [m]
+kf_pos_err_max_m,Max position error [m]
+kf_pos_err_std_m,Std dev of position error [m]
+kf_pos_err_p90_m,90th percentile position error [m]
+kf_track_rmse_m,Overall track RMSE [m]
+kf_rolling_rmse_spike_count,Count of 10-step windows where rolling RMSE > 2× track RMSE
+kf_sigma_pos_mean_m,Mean Kalman position uncertainty σ [m]
+kf_sigma_pos_max_m,Max Kalman position uncertainty σ [m]
+kf_consistency_ratio_mean,Mean(pos_err / sigma_pos): >2 = overconfident filter
+kf_consistency_ratio_max,Max(pos_err / sigma_pos)
+kf_overconfident_frac,Fraction of rows where pos_err > 2 × sigma_pos
+cov_total_rows,Total trajectory rows (measurement + prediction)
+cov_pred_only_count,Number of prediction-only (no measurement) rows
+cov_pred_only_frac,Fraction of rows that are prediction-only
+cov_max_consec_pred,Max consecutive prediction-only rows (longest gap)
+cov_n_dropout_events,Number of distinct measurement dropout events
+cov_duration_s,Track duration [s]
+dis_das_cam_mean_m,Mean |DAS_x - Camera_x| when both present [m]
+dis_das_cam_max_m,Max |DAS_x - Camera_x| [m]
+dis_das_hat_mean_m,Mean |DAS_x - x_hat| [m]
+dis_das_hat_max_m,Max |DAS_x - x_hat| [m]
+dis_cam_hat_mean_m,Mean |Camera_x - x_hat| [m]
+dis_cam_hat_max_m,Max |Camera_x - x_hat| [m]
+dis_gps_hat_mean_m,Mean |GPS_x - x_hat| [m]
+dis_gps_hat_max_m,Max |GPS_x - x_hat| [m]
+dis_das_only_err_mean_m,Mean pos_err on DAS-only rows [m]
+dis_cam_only_err_mean_m,Mean pos_err on camera-only rows [m]
+dis_das_worse_than_cam,1 if DAS-only error > camera-only error (DAS degrades fusion)
+das_n_measurements,Total DAS measurements for this track
+das_snr_mean,Mean DAS SNR
+das_snr_min,Min DAS SNR
+das_snr_max,Max DAS SNR
+das_snr_std,Std dev of DAS SNR
+das_snr_low_frac,Fraction of DAS rows with SNR < 5 (low quality)
+das_sigma_mean_m,Mean DAS position uncertainty σ [m]
+das_sigma_max_m,Max DAS position uncertainty σ [m]
+das_confidence_mean,Mean DAS reliability (SNR-derived confidence)
+das_sigma_v_mean_mps,Mean DAS velocity uncertainty σ_v [m/s]
+das_accept_frac,Fraction of DAS measurements accepted by Kalman
+das_skip_frac,Fraction of DAS measurements skipped
+das_W_est_kg,Estimated vehicle weight [kg] from SNR (lane-center approx)
+das_W_est_class,Weight class of W_est (motorcycle/car/bus/...)
+das_declared_weight_kg,Declared vehicle weight from scenario JSON [kg]
+das_declared_weight_class,Weight class of declared weight
+das_weight_ratio,W_est / declared_weight (1.0 = perfect match)
+das_weight_anomaly,1 if |W_est/declared - 1| > 0.5 (50% discrepancy)
+cam_n_measurements,Total camera measurements for this track
+cam_confidence_mean,Mean camera detection confidence
+cam_confidence_min,Min camera detection confidence
+cam_confidence_std,Std dev of camera confidence
+cam_low_conf_frac,Fraction of camera rows with confidence < 0.30
+cam_sigma_mean_m,Mean camera position uncertainty σ [m]
+cam_accept_frac,Fraction of camera measurements accepted by Kalman
+gps_n_measurements,Total GPS measurements for this track
+gps_sigma_mean_m,Mean GPS position uncertainty σ [m]
+aud_skip_total,Total measurements skipped across all sensor types
+aud_skip_frac,Fraction of all measurements skipped
+aud_skip_reason_top,Most common skip reason (string)
+xl_n_vehicle_stuck_events,Number of vehicle_stuck events in Issues sheet
+xl_first_stuck_t,Timestamp of first vehicle_stuck event [s]
+xl_rmse_gps_rmse_pos_m,GPS position RMSE from Excel RMSE sheet [m]
+xl_rmse_camera_rmse_pos_m,Camera position RMSE from Excel RMSE sheet [m]
+xl_rmse_das_rmse_pos_m,DAS position RMSE from Excel RMSE sheet [m]
+xl_true_speed_mean_mps,Mean true (ground truth) speed from Vehicles sheet [m/s]
+xl_true_speed_max_mps,Max true speed [m/s]
+xl_true_speed_std_mps,Std dev of true speed [m/s]
+xl_true_accel_max_abs_mps2,Max absolute true acceleration [m/s²]
+xl_true_min_accel_mps2,Most negative true acceleration (hardest braking) [m/s²]

@@ -1,0 +1,36 @@
+
+SimStudio Anomaly Model — Feature Extraction
+Mode      : ANOMALY  (label='anomaly')
+Root      : /Users/noasapir/final proj/anomaly_model/simulations
+Scenarios : 9 with completed exports found
+
+  region_003/anomaly_speeding                   … OK  (4 track(s))
+  region_010/anomaly_hard_braking               … OK  (4 track(s))
+  region_020/anomaly_stalled_vehicle            … OK  (4 track(s))
+  region_037/anomaly_lane_weaving               … OK  (4 track(s))
+  region_062/anomaly_tailgating                 … OK  (4 track(s))
+  region_083/anomaly_lane_straddling            … OK  (4 track(s))
+  region_120/anomaly_collision                  … OK  (4 track(s))
+  region_120/anomaly_reckless_driver            … OK  (4 track(s))
+  region_140/anomaly_overweight_vehicle         … OK  (4 track(s))
+
+============================================================
+Extraction complete:  9/9 succeeded,  0 failed  (0 skipped / already done)
+Wall time: 48.3 s
+
+Output    : /Users/noasapir/final proj/anomaly_model/outputs/features_anomaly_new.csv
+Rows      : 36  (0 normal, 36 anomaly tracks)
+Features  : 170 columns (incl. identifiers + label)
+============================================================
+
+
+SimStudio — Feature Excel Builder
+  Input  : /Users/noasapir/final proj/anomaly_model/outputs/features_anomaly_new.csv
+  Output : /Users/noasapir/final proj/anomaly_model/outputs/features_anomaly_new.xlsx
+  Reading CSV … 36 rows × 170 columns
+  Building Features sheet … done
+  Building Summary sheet … done
+  Building Feature Catalog sheet … done
+
+  ✓  Saved: /Users/noasapir/final proj/anomaly_model/outputs/features_anomaly_new.xlsx
+     Catalog entries : 170 known + 0 unlabelled
