@@ -33,7 +33,7 @@ Students: Noa Sapir, Nitai Dobrecki · Instructor: Khen Cohen · 2025–2026
 
 ## 1. Overview
 
-**SimStudio** is a desktop simulation, multi-sensor fusion, and anomaly-detection environment for fiber-optic **Distributed Acoustic Sensing (DAS)** traffic monitoring. It imports real urban road networks from OpenStreetMap, drives physically grounded vehicles along them, and synthesizes three complementary sensing modalities — DAS strain on a buried fiber, vision-based camera detections, and satellite GPS fixes. An event-driven pipeline associates these measurements into stable vehicle tracks, fuses them through a six-state constant-acceleration Kalman filter with SNR-dependent measurement noise, and a read-only analytics layer extracts **166 behavioral features per vehicle** to detect anomalies.
+**SimStudio** is a desktop simulation, multi-sensor fusion, and anomaly-detection environment for fiber-optic **Distributed Acoustic Sensing (DAS)** traffic monitoring. It imports real urban road networks from OpenStreetMap, drives physically grounded vehicles along them, and synthesizes three complementary sensing modalities: DAS strain on a buried fiber, vision-based camera detections, and satellite GPS fixes. An event-driven pipeline associates these measurements into stable vehicle tracks, fuses them through a six-state constant-acceleration Kalman filter with SNR-dependent measurement noise, and a read-only analytics layer extracts **166 behavioral features per vehicle** to detect anomalies.
 
 **Headline results:**
 
@@ -42,17 +42,17 @@ Students: Noa Sapir, Nitai Dobrecki · Instructor: Khen Cohen · 2025–2026
 | Cross-street tracking accuracy | ≥ 90% | **Sub-meter RMSE** (0.35 m mean, 0.49 m representative cross-segment track) |
 | Anomaly detection | ≥ 5 / 10 | **6 of 9** injected anomalies detected |
 | Position tolerance | ≤ ±5 m | Max error **1.52 m** |
-| Real-world validation | — | Real Klausner St. DAS + camera recording fused at **1.17 m RMSE** through the unchanged pipeline |
+| Real-world validation | N/A | Real Klausner St. DAS + camera recording fused at **1.17 m RMSE** through the unchanged pipeline |
 
 ---
 
 ## 2. Motivation and Research Question
 
-Modern cities are laced with tens of thousands of kilometers of telecommunication optical fiber, most of which sits idle below street level. **Distributed Acoustic Sensing (DAS)** interrogators can convert any segment of that existing fiber into a dense array of vibration sensors — each meter of cable becomes an independent sensing channel — at a fraction of the cost of deploying dedicated infrastructure.
+Modern cities are laced with tens of thousands of kilometers of telecommunication optical fiber, most of which sits idle below street level. **Distributed Acoustic Sensing (DAS)** interrogators can convert any segment of that existing fiber into a dense array of vibration sensors (each meter of cable becomes an independent sensing channel) at a fraction of the cost of deploying dedicated infrastructure.
 
-Prior work from the group of Prof. Khen Cohen and Alon Lellouch at Tel Aviv University demonstrated that DAS signals can be used to detect and classify individual vehicles on a single road segment, and that camera-derived labels can be used to train DAS classifiers without manual annotation. Our project asks the next question: **can a multi-sensor system that fuses DAS with cameras and GPS reliably track individual vehicles across a road network, and can it detect anomalous driving behavior from the fused signal alone — without access to ground-truth labels at inference time?**
+Prior work from the group of Prof. Khen Cohen and Alon Lellouch at Tel Aviv University demonstrated that DAS signals can be used to detect and classify individual vehicles on a single road segment, and that camera-derived labels can be used to train DAS classifiers without manual annotation. Our project asks the next question: **can a multi-sensor system that fuses DAS with cameras and GPS reliably track individual vehicles across a road network, and can it detect anomalous driving behavior from the fused signal alone, without access to ground-truth labels at inference time?**
 
-Answering this question has direct smart-city applications. Traffic authorities need low-cost, continuous knowledge of how vehicles move through a city and when something goes wrong — a sudden stop, a stalled car, a collision in progress. Existing systems are either point-detectors (loop inductors, radar) that lose track of vehicles between measurements, or camera networks that raise privacy concerns and require significant maintenance. A fiber-optic system reuses already-deployed infrastructure and is inherently distributed: a single fiber run beside a street provides continuous coverage along the entire road, regardless of intersections, lighting conditions, or weather.
+Answering this question has direct smart-city applications. Traffic authorities need low-cost, continuous knowledge of how vehicles move through a city and when something goes wrong, such as a sudden stop, a stalled car, or a collision in progress. Existing systems are either point-detectors (loop inductors, radar) that lose track of vehicles between measurements, or camera networks that raise privacy concerns and require significant maintenance. A fiber-optic system reuses already-deployed infrastructure and is inherently distributed: a single fiber run beside a street provides continuous coverage along the entire road, regardless of intersections, lighting conditions, or weather.
 
 Because dedicated DAS interrogator hardware and an instrumented street were not available within the project timeframe, we pursued both objectives through a **physically grounded simulator** that reproduces the relevant physics: the Flamant–Boussinesq ground-strain model for DAS amplitude, SNR-dependent detection probability, a pinhole camera model with range-dependent noise, and GPS noise that grows with distance from the receiver. The simulator uses real OpenStreetMap geometry for the road network, so vehicles travel along actual Tel Aviv streets with correct lane counts, speed limits, and topology.
 
@@ -61,7 +61,7 @@ Because dedicated DAS interrogator hardware and an instrumented street were not 
 <p align="center">
   <img src="maps/north_TLV/overview.png" alt="North Tel Aviv road network" width="760"/>
 </p>
-<p align="center"><em>The North Tel Aviv (south) road network imported from OpenStreetMap — the 144 simulation regions that seed the normal-driving baseline.</em></p>
+<p align="center"><em>The North Tel Aviv (south) road network imported from OpenStreetMap, showing the 144 simulation regions that seed the normal-driving baseline.</em></p>
 
 ## 3. System Architecture
 
@@ -71,13 +71,13 @@ The system is organized as a strictly one-directional pipeline of loosely couple
 Simulate → Sense → Publish → Track → Fuse → Export → Analyze
 ```
 
-The central design principle is **unidirectional data flow**: each stage consumes only the outputs of stages upstream of it. The simulator knows nothing about the tracker; the tracker knows nothing about the Kalman filter; the anomaly model never imports from the simulator. This separation ensures that the anomaly model cannot accidentally benefit from oracle information that a real deployment would not have, and it made the codebase independently testable at each boundary.
+The central design principle is **unidirectional data flow**: each stage consumes only the outputs of stages upstream of it. The simulator knows nothing about the tracker. The tracker knows nothing about the Kalman filter, and the anomaly model never imports from the simulator. This separation ensures that the anomaly model cannot accidentally benefit from oracle information that a real deployment would not have, and it made the codebase independently testable at each boundary.
 
 ```
 src/simstudio/
-├── sim_core.py      25 Hz engine — vehicle physics + sensor measurement generation
-├── bus.py           EventBus — publish / subscribe across all modules
-├── tracking.py      TrackManager — cross-segment vehicle identity
+├── sim_core.py      25 Hz engine: vehicle physics + sensor measurement generation
+├── bus.py           EventBus: publish / subscribe across all modules
+├── tracking.py      TrackManager: cross-segment vehicle identity
 ├── kalman.py        6-state CA Kalman filter + row builders
 ├── audit.py         Trajectory + audit workbook exporter
 ├── export_xlsx.py   Styled Excel workbook + embedded charts
@@ -89,7 +89,7 @@ anomaly_model/
 └── scripts/scenario_scorer.py   Per-feature Z-score scoring (numpy-only)
 ```
 
-All inter-module communication flows through the EventBus. The simulator is the only publisher; the tracker, Kalman filter, and GUI are all consumers. This keeps dependencies acyclic and means any component can be replaced or tested in isolation.
+All inter-module communication flows through the EventBus. The simulator is the only publisher, and the tracker, Kalman filter, and GUI are all consumers. This keeps dependencies acyclic and means any component can be replaced or tested in isolation.
 
 ---
 
@@ -124,16 +124,16 @@ IDM is used in braking-only mode: it overrides the free-driving acceleration onl
 
 ### 4.4 Lateral Drift (Ornstein–Uhlenbeck Process)
 
-Lateral position within the lane follows a **discrete-time Ornstein–Uhlenbeck (OU) process** — a mean-reverting stochastic drift bounded to ± ½ lane width:
+Lateral position within the lane follows a **discrete-time Ornstein–Uhlenbeck (OU) process**, a mean-reverting stochastic drift bounded to ± ½ lane width:
 
 ```
 lat_{k+1} = ρ · lat_k + N(0, σ_lat · √(1−ρ²))      ρ = e^(−dt/τ_lat)
 τ_lat = 1.5 s
 ```
 
-This produces realistic lane-keeping noise: the vehicle wanders slightly around the centerline but is continuously pulled back toward it. The lateral offset directly affects all three sensor geometries — it changes the vehicle-to-fiber distance for DAS (and hence amplitude and SNR), the off-axis angle for the camera, and the Euclidean range for GPS.
+This produces realistic lane-keeping noise: the vehicle wanders slightly around the centerline but is continuously pulled back toward it. The lateral offset directly affects all three sensor geometries: it changes the vehicle-to-fiber distance for DAS (and hence amplitude and SNR), the off-axis angle for the camera, and the Euclidean range for GPS.
 
-**Anomaly lateral modes** override the default OU process. A vehicle marked `lateral_mode = "weave"` follows a sinusoidal oscillation across the full lane width; `"straddle"` clamps the vehicle to the lane edge; `"drift"` integrates a constant lateral velocity. These modes inject controlled lateral anomalies while all other vehicle parameters remain normal.
+**Anomaly lateral modes** override the default OU process. A vehicle marked `lateral_mode = "weave"` follows a sinusoidal oscillation across the full lane width. `"straddle"` clamps the vehicle to the lane edge, and `"drift"` integrates a constant lateral velocity. These modes inject controlled lateral anomalies while all other vehicle parameters remain normal.
 
 ### 4.5 Routing and Segment Transitions
 
@@ -145,7 +145,7 @@ At each junction a vehicle selects the next lane from a segment graph, avoiding 
 
 ### 5.1 DAS (Distributed Acoustic Sensing)
 
-DAS is the project's primary and novel sensing modality. A laser pulse is launched into a buried fiber and a small fraction is back-scattered (Rayleigh backscatter) from each meter of cable; a passing vehicle's ground vibration phase-modulates this return signal, giving a strain-rate measurement proportional to ground displacement:
+DAS is the project's primary and novel sensing modality. A laser pulse is launched into a buried fiber and a small fraction is back-scattered (Rayleigh backscatter) from each meter of cable. A passing vehicle's ground vibration phase-modulates this return signal, giving a strain-rate measurement proportional to ground displacement:
 
 ```
 ∂ε/∂t ∝ ∂u(t,z)/∂t
@@ -172,15 +172,15 @@ p_detect = SNR² / (SNR² + t²)        t = snr_det_threshold (default 2.0)
 
 At SNR = t the vehicle is detected 50% of the time. Missed detections publish a `sensor.das_miss` event, so the audit trail captures every non-detection explicitly.
 
-**SNR-derived position uncertainty.** The Kalman measurement noise is not a fixed constant — it is derived from the SNR at each timestep:
+**SNR-derived position uncertainty.** The Kalman measurement noise is not a fixed constant, but is derived from the SNR at each timestep:
 
 ```
 σ_DAS = max(0.8,  k_DAS / √SNR)      k_DAS = 2.0 m
 ```
 
-A heavy vehicle close to the fiber produces a low-uncertainty measurement that the Kalman trusts heavily; a light or distant vehicle produces a high-uncertainty measurement that is down-weighted automatically. No manual tuning is required.
+A heavy vehicle close to the fiber produces a low-uncertainty measurement that the Kalman trusts heavily, while a light or distant vehicle produces a high-uncertainty measurement that is down-weighted automatically. No manual tuning is required.
 
-**Systematic position bias.** To mimic a real DAS artifact — peak-finding bias when the signal is partly buried in noise — the simulator adds a random-sign systematic term:
+**Systematic position bias.** To mimic a real DAS artifact (peak-finding bias when the signal is partly buried in noise), the simulator adds a random-sign systematic term:
 
 ```
 s_meas = s_fiber + N(0, σ_x) + β
@@ -210,7 +210,7 @@ conf = 0.15 + 0.83 · (1 − r/r_max)^1.35 · (0.55 + 0.45 · (1 − |θ|/θ_max
 
 Position uncertainty has three components: a fixed floor, a range-proportional term, and an off-axis distortion term. A frame is stochastically skipped if `random() > conf`, modeling partial occlusion and low-confidence detections.
 
-The camera provides a full 2D (x, y) position measurement — unlike DAS, which is 1D along the fiber — and updates both axes of the Kalman filter simultaneously. Camera confidence is used to scale the measurement noise: `σ_eff = σ_cam / √conf`.
+The camera provides a full 2D (x, y) position measurement, unlike DAS which is 1D along the fiber, and updates both axes of the Kalman filter simultaneously. Camera confidence is used to scale the measurement noise: `σ_eff = σ_cam / √conf`.
 
 ### 5.3 GPS
 
@@ -226,7 +226,7 @@ GPS provides an absolute 2D position fix but at low rate and relatively high noi
 
 ## 6. Vehicle Tracking Pipeline
 
-Tracking is the hardest problem in the system. The goal is to maintain a **stable `global_track_id`** for each physical vehicle across segment boundaries, sensor handoffs, and brief coverage gaps — without ever using the oracle `vehicle_id` that the simulator provides. The tracker is strictly kinematic: it knows only what a real system would know.
+Tracking is the hardest problem in the system. The goal is to maintain a **stable `global_track_id`** for each physical vehicle across segment boundaries, sensor handoffs, and brief coverage gaps, without ever using the oracle `vehicle_id` that the simulator provides. The tracker is strictly kinematic: it knows only what a real system would know.
 
 ### 6.1 Event-Driven Association
 
@@ -245,13 +245,13 @@ Tracks older than 5 seconds or farther than 20 m are excluded. The lowest-cost t
 
 ### 6.2 Tentative vs. Confirmed Tracks
 
-Every new track is born **tentative**. It is only **confirmed** after 3 consecutive sensor hits agree on the same kinematic identity. This prevents ghost tracks — spurious DAS hits from noise or multi-vehicle peak merging — from polluting the output. A DAS ghost born from a single fiber hit stays tentative unless two more measurements corroborate it within 5 seconds.
+Every new track is born **tentative**. It is only **confirmed** after 3 consecutive sensor hits agree on the same kinematic identity. This prevents ghost tracks (spurious DAS hits from noise or multi-vehicle peak merging) from polluting the output. A DAS ghost born from a single fiber hit stays tentative unless two more measurements corroborate it within 5 seconds.
 
 ### 6.3 The Ghost-Track / GPS Fragmentation Bug and Fix
 
 Early in development we discovered a subtle and instructive failure: a confirmed, well-tracked vehicle was accumulating zero GPS measurements. The bug had a multi-step cause:
 
-1. High-rate DAS hits (25 Hz) that fell slightly outside the association gate — due to lateral noise — each spawned a tentative ghost track with kinematics nearly identical to the real vehicle.
+1. High-rate DAS hits (25 Hz) that fell slightly outside the association gate, due to lateral noise, each spawned a tentative ghost track with kinematics nearly identical to the real vehicle.
 2. One second later, GPS fired. Both the confirmed real track and the ghost track predicted essentially the same position, so both had a cost of ~4 m (GPS noise level).
 3. The ambiguity guard fired: `second_best_cost (4 m) < 2 × best_cost (8 m)` → returned None → GPS opened a brand-new orphan track instead of updating the real one.
 4. The real track never received GPS measurements. The orphan track accumulated GPS measurements but had no DAS history.
@@ -269,14 +269,14 @@ else:
         return None   # strict guard for unconfirmed tracks
 ```
 
-After the fix, GPS measurements reached the correct confirmed track, ghost tracks stopped being spawned, and per-track GPS counts went from 0 to the expected 2–5 per 40-second simulation. This bug was the most instructive engineering moment of the project: it showed that the ambiguity guard and the confirmation model are not independent — they interact in a way that is only visible when all three sensor types are active simultaneously.
+After the fix, GPS measurements reached the correct confirmed track, ghost tracks stopped being spawned, and per-track GPS counts went from 0 to the expected 2–5 per 40-second simulation. This bug was the most instructive engineering moment of the project: it showed that the ambiguity guard and the confirmation model are not independent, since they interact in a way that is only visible when all three sensor types are active simultaneously.
 
 ---
 
 <p align="center">
   <a href="anomaly_model/simulations/region_003/region_003_anomaly_speeding.sim_export_20260517_202258_tracking_audit"><img src="anomaly_model/simulations/region_003/region_003_anomaly_speeding.sim_export_20260517_202258_tracking_audit/track_xy_T000002.png" alt="Fused cross-segment track vs ground truth" width="700"/></a>
 </p>
-<p align="center"><em>A single vehicle tracked across four street segments (3 transitions) by fusing DAS, camera, and GPS — position RMSE 0.37 m, max error 1.11 m.</em></p>
+<p align="center"><em>A single vehicle tracked across four street segments (3 transitions) by fusing DAS, camera, and GPS (position RMSE 0.37 m, max error 1.11 m).</em></p>
 
 ## 7. Kalman Filter Fusion
 
@@ -311,13 +311,13 @@ x̂ = x̂⁻ + K · (z − H · x̂⁻)
 P = (I − KH) · P⁻ · (I − KH)ᵀ + K · R · Kᵀ  (Joseph form)
 ```
 
-The Joseph form of the covariance update is used for numerical stability — it remains positive semi-definite even in the presence of floating-point rounding, which matters over long simulation runs.
+The Joseph form of the covariance update is used for numerical stability: it remains positive semi-definite even in the presence of floating-point rounding, which matters over long simulation runs.
 
 ### 7.4 Sensor-Specific Update Geometry
 
 The three sensors update different subsets of the state:
 
-- **DAS** updates **x only** (1D along the fiber axis). Feeding a fabricated y-value from a DAS measurement would cause a permanent lateral bias — DAS physically cannot observe lateral position — so only the x-row of H is populated. The DAS velocity measurement updates vx only.
+- **DAS** updates **x only** (1D along the fiber axis). Feeding a fabricated y-value from a DAS measurement would cause a permanent lateral bias, since DAS physically cannot observe lateral position, so only the x-row of H is populated. The DAS velocity measurement updates vx only.
 - **Camera** and **GPS** update **both x and y** (full 2D position).
 
 ### 7.5 Dynamic Measurement Noise
@@ -328,7 +328,7 @@ The key to the fusion working well is that every sensor forwards its **physicall
 - Camera: `R_xy = σ_cam² / conf`
 - GPS: `R_xy = (σ₀ · (1 + 0.35·(r/r_max)²))²`
 
-This dynamic R is what makes complementary fusion work: across DAS coverage zones the filter trusts DAS heavily; in DAS-dark zones it relies on camera and GPS to prevent covariance from growing too large.
+This dynamic R is what makes complementary fusion work: across DAS coverage zones the filter trusts DAS heavily. In DAS-dark zones it relies on camera and GPS to prevent covariance from growing too large.
 
 ### 7.6 Innovation Logging (NIS)
 
@@ -340,21 +340,21 @@ S_xx = (H · P⁻ · Hᵀ + R)_xx
 NIS_x = ν_x² / S_xx
 ```
 
-Under a consistent, well-calibrated filter, NIS_x follows a χ²(1) distribution with expected value 1.0. A sustained rise above 1.0 indicates that reality has diverged from the model's prediction — the signature of an anomaly. Prediction-only rows carry NaN for all innovation fields.
+Under a consistent, well-calibrated filter, NIS_x follows a χ²(1) distribution with expected value 1.0. A sustained rise above 1.0 indicates that reality has diverged from the model's prediction, the signature of an anomaly. Prediction-only rows carry NaN for all innovation fields.
 
 ---
 
 ## 8. Anomaly Detection Model
 
-The anomaly model is a **read-only post-processing module** (`anomaly_model/`) that never imports from the simulator. It operates on exported files only — trajectories, audit workbooks, and scenario JSONs — mirroring how a real deployment would operate on recorded data. Ground truth is used only for evaluation, never for scoring.
+The anomaly model is a **read-only post-processing module** (`anomaly_model/`) that never imports from the simulator. It operates on exported files only (trajectories, audit workbooks, and scenario JSONs), mirroring how a real deployment would operate on recorded data. Ground truth is used only for evaluation, never for scoring.
 
 ### 8.1 Feature Extraction (166 Features)
 
-The `feature_extractor.py` module reduces each vehicle's full time-series trajectory to a single 166-dimensional feature vector — the vehicle's **behavioral fingerprint**. Features are organized into 9 semantic groups:
+The `feature_extractor.py` module reduces each vehicle's full time-series trajectory to a single 166-dimensional feature vector, the vehicle's **behavioral fingerprint**. Features are organized into 9 semantic groups:
 
 | Group | Prefix | Count | What it captures |
 |-------|--------|-------|-----------------|
-| Identifiers | — | 3 | scenario_id, global_track_id, vehicle_id_oracle |
+| Identifiers | none | 3 | scenario_id, global_track_id, vehicle_id_oracle |
 | Scenario metadata | `sc_` | 16 | Vehicle count, anomaly flags, sensor config from JSON |
 | Kinematics | `kin_` | ~40 | Speed, acceleration, jerk, lateral deviation, stopping |
 | Kalman quality | `kf_` | 11 | Position error, filter uncertainty, overconfidence fraction |
@@ -364,7 +364,7 @@ The `feature_extractor.py` module reduces each vehicle's full time-series trajec
 | DAS weight estimation | `das_W_` | 6 | Back-estimated weight vs. declared weight |
 | Inter-vehicle | `iv_` | ~30 | Proximity, TTC, collision risk, speed ratio to traffic |
 
-**Key kinematic features** include the fraction of time spent above the speed limit (`kin_speed_over_limit_frac`), the maximum deceleration and jerk, and the lateral oscillation ratio (`std(lat) / mean(lat)`) — which rises sharply for weaving behavior.
+**Key kinematic features** include the fraction of time spent above the speed limit (`kin_speed_over_limit_frac`), the maximum deceleration and jerk, and the lateral oscillation ratio (`std(lat) / mean(lat)`), which rises sharply for weaving behavior.
 
 **DAS weight back-estimation.** The Flamant–Boussinesq amplitude formula can be inverted: given the measured DAS amplitude A, the fiber offset r, and the noise threshold snr_th, the estimated vehicle weight is:
 
@@ -372,13 +372,13 @@ The `feature_extractor.py` module reduces each vehicle's full time-series trajec
 W_est = SNR_mean × snr_th × (fiber_offset_m + d₀)²
 ```
 
-If W_est differs from the declared weight by more than 50%, a `das_weight_anomaly` flag is raised — effective for detecting overweight or misclassified vehicles.
+If W_est differs from the declared weight by more than 50%, a `das_weight_anomaly` flag is raised, which is effective for detecting overweight or misclassified vehicles.
 
 **Inter-vehicle features** compute the minimum distance to any other vehicle, minimum time-to-collision, maximum relative speed at closest approach, and a collision risk proxy (`max(Δv² / dist)`). A collision event flag (`iv_collision_detected`) produces Z-scores in the thousands when triggered, making collision detection effectively certain.
 
-### 8.2 Supplementary Temporal Diagnostic — CUSUM
+### 8.2 Supplementary Temporal Diagnostic: CUSUM
 
-Alongside the Z-score classifier, `cusum_detector.py` implements **Page's one-sided CUSUM** on the NIS_x time series as a supplementary diagnostic (surfaced in the desktop GUI's Anomaly Intel tab); it is not part of the trajectory-level classification. The CUSUM statistic accumulates evidence that NIS_x exceeds a reference level k, and raises an alarm when it crosses a threshold h:
+Alongside the Z-score classifier, `cusum_detector.py` implements **Page's one-sided CUSUM** on the NIS_x time series as a supplementary diagnostic (surfaced in the desktop GUI's Anomaly Intel tab). It is not part of the trajectory-level classification. The CUSUM statistic accumulates evidence that NIS_x exceeds a reference level k, and raises an alarm when it crosses a threshold h:
 
 ```
 S_t = max(0,  S_{t-1} + NIS_x(t) − k)
@@ -399,22 +399,22 @@ anomaly_score = max_i |z_i|
 vehicle flagged if anomaly_score > threshold  (≈ 15.4 σ)
 ```
 
-The threshold was chosen as the 99th percentile of `max_z` across all vehicles in the normal training corpus, giving a false-positive rate of ~1% on clean scenarios. The scorer also reports the **top contributing feature** — the single feature whose Z-score is largest — making each detection interpretable. A traffic operator can see not just "this vehicle was flagged" but "it was flagged because its maximum jerk was 14.2 standard deviations above the normal mean."
+The threshold was chosen as the 99th percentile of `max_z` across all vehicles in the normal training corpus, giving a false-positive rate of ~1% on clean scenarios. The scorer also reports the **top contributing feature** (the single feature whose Z-score is largest), making each detection interpretable. A traffic operator can see not just "this vehicle was flagged" but "it was flagged because its maximum jerk was 14.2 standard deviations above the normal mean."
 
-**Why Z-score and not Isolation Forest?** Isolation Forest was the original detection method but was replaced by the Z-score baseline for three reasons: it is fully interpretable (each feature's contribution is explicit); it requires no sklearn dependency, making the model portable as a numpy array; and on our dataset the Z-score outperformed Isolation Forest because the anomaly features have well-separated distributions from normal. Isolation Forest has since been removed from the scorer entirely; the shipped model is a pure-numpy Z-score baseline.
+**Why Z-score and not Isolation Forest?** Isolation Forest was the original detection method but was replaced by the Z-score baseline for three reasons. It is fully interpretable, since each feature's contribution is explicit. It requires no sklearn dependency, making the model portable as a numpy array. And on our dataset the Z-score outperformed Isolation Forest because the anomaly features have well-separated distributions from normal. Isolation Forest has since been removed from the scorer entirely, and the shipped model is a pure-numpy Z-score baseline.
 
 ---
 
 <p align="center">
   <a href="anomaly_model/simulations/region_003/anomaly_speeding/anomaly_report_20260521_035723.xlsx"><img src="anomaly_model/simulations/region_003/anomaly_speeding/top_anomalous_features.png" alt="Top anomalous features vs normal training distribution" width="760"/></a>
 </p>
-<p align="center"><em>The flagged vehicle (red dashed) against the learned normal distribution for its top-scoring features — speed, speed excess, and lateral velocity all fall far outside the ±4σ envelope.</em></p>
+<p align="center"><em>The flagged vehicle (red dashed) against the learned normal distribution for its top-scoring features: speed, speed excess, and lateral velocity all fall far outside the ±4σ envelope.</em></p>
 
 ## 9. The Simulation Experiment
 
 ### 9.1 Designing the Normal Baseline
 
-The anomaly model must learn a broad notion of normal driving before it can recognize deviations. A narrow training corpus — only light vehicles, or only full sensor coverage — would flag legitimate edge cases as anomalies. If the training data contains no trucks, the model learns that high DAS amplitude is suspicious. If it contains no DAS-dark zones, it learns that prediction-only gaps are suspicious. Both would cause false positives in real deployment.
+The anomaly model must learn a broad notion of normal driving before it can recognize deviations. A narrow training corpus (only light vehicles, or only full sensor coverage) would flag legitimate edge cases as anomalies. If the training data contains no trucks, the model learns that high DAS amplitude is suspicious. If it contains no DAS-dark zones, it learns that prediction-only gaps are suspicious. Both would cause false positives in real deployment.
 
 We designed the normal training corpus across **three orthogonal axes of variation**:
 
@@ -422,13 +422,13 @@ We designed the normal training corpus across **three orthogonal axes of variati
 
 **Sensor coverage axis:** full sensor coverage (DAS + camera + GPS everywhere), sparse deployment (sensors at every third intersection), DAS-only (no camera or GPS), DAS + camera without GPS, and minimal deployment (single sensor per segment).
 
-**Cross-axis scenarios:** heavy traffic with sparse sensors — the hardest normal case, where the model must learn that high DAS amplitude combined with low camera coverage is still normal — and heavy vehicles with DAS only.
+**Cross-axis scenarios:** heavy traffic with sparse sensors (the hardest normal case, where the model must learn that high DAS amplitude combined with low camera coverage is still normal) and heavy vehicles with DAS only.
 
 This produced **144 distinct normal simulation regions** (tiles of the North Tel Aviv network), each seeding an independent traffic scene. The resulting training corpus contains **over 14,000 vehicle-track rows** spanning all 12 normal condition types.
 
 ### 9.2 Injected Anomaly Scenarios
 
-Nine anomaly scenarios were constructed, each with a small group of background normal vehicles and one injected anomalous vehicle. The anomaly was designed to be detectable from sensor signals alone — no oracle flags are passed to the scorer:
+Nine anomaly scenarios were constructed, each with a small group of background normal vehicles and one injected anomalous vehicle. The anomaly was designed to be detectable from sensor signals alone, with no oracle flags passed to the scorer:
 
 | # | Anomaly type | Injection method |
 |---|-------------|-----------------|
@@ -442,11 +442,11 @@ Nine anomaly scenarios were constructed, each with a small group of background n
 | 8 | **Overweight vehicle** | `weight_kg = 12000` (heavy truck misclassified as car) |
 | 9 | **Reckless driving** | Combined speeding + hard braking + tailgating |
 
-For each scenario the full pipeline was run: simulation → feature extraction → Z-score scoring. The anomaly model was not retrained between scenarios — the same normal baseline was used throughout.
+For each scenario the full pipeline was run: simulation → feature extraction → Z-score scoring. The anomaly model was not retrained between scenarios, and the same normal baseline was used throughout.
 
 ### 9.3 Map Data and Physical Grounding
 
-The road geometry came from **OpenStreetMap** exports of two real Tel Aviv neighborhoods: Florentin (dense urban grid, narrow streets, many intersections) and North Tel Aviv (wider arterials, longer straight segments). Using real map data means the simulation inherits actual road topology — dead-ends, unusual intersection angles, and non-trivial lane curvatures — conditions a synthetic rectangular grid would not reproduce.
+The road geometry came from **OpenStreetMap** exports of two real Tel Aviv neighborhoods: Florentin (dense urban grid, narrow streets, many intersections) and North Tel Aviv (wider arterials, longer straight segments). Using real map data means the simulation inherits actual road topology (dead-ends, unusual intersection angles, and non-trivial lane curvatures), conditions a synthetic rectangular grid would not reproduce.
 
 Physical model parameters (the Flamant–Boussinesq d₀ constant, SNR thresholds, GPS noise levels) were calibrated against values from the DAS traffic monitoring literature and validated against documented performance of consumer-grade and survey-grade GPS receivers. The full derivation is in `submissions/physical_data/SimStudio_Physical_Models_Reference.docx`.
 
@@ -454,11 +454,11 @@ Physical model parameters (the Flamant–Boussinesq d₀ constant, SNR threshold
 
 **The sensor hierarchy matters more than sensor count.** Across all scenarios, the dominant factor in tracking accuracy was not how many sensors were present, but whether the confirmed-track association logic correctly routed all sensors to the same track. The GPS fragmentation bug showed that a single association error can silently eliminate an entire sensor's contribution. After the fix, RMSE dropped and the per-track GPS count reached its expected value.
 
-**The anomaly threshold is a fundamental design decision, not a tuning knob.** Setting the Z-score threshold too low (e.g., 8 σ) flags heavy vehicles and stop-and-go traffic as anomalous. Too high (e.g., 25 σ) and subtle anomalies are missed. The 15.4 σ operating point — derived from the 99th percentile of the normal max-Z distribution — is the right trade-off for a system that sees many vehicles per day and must keep false positives rare.
+**The anomaly threshold is a fundamental design decision, not a tuning knob.** Setting the Z-score threshold too low (e.g., 8 σ) flags heavy vehicles and stop-and-go traffic as anomalous. Too high (e.g., 25 σ) and subtle anomalies are missed. The 15.4 σ operating point, derived from the 99th percentile of the normal max-Z distribution, is the right trade-off for a system that sees many vehicles per day and must keep false positives rare.
 
-**Subtle lateral anomalies are hard with the current feature set.** Weaving and straddling were not detected reliably (they fell below the threshold in 3 of 9 scenarios). The lateral deviation features (`kin_lateral_oscillation_ratio`, `cov_das_fiber_dist_std_m`) overlap with the range of normal OU drift when the weave amplitude is moderate. This is a principled observation: with the threshold set to keep false positives at 1%, low-amplitude lateral anomalies are below the detection limit. Adding targeted lateral features — such as the dominant frequency of lateral oscillation via FFT — or lowering the threshold would improve recall at the cost of more false positives.
+**Subtle lateral anomalies are hard with the current feature set.** Weaving and straddling were not detected reliably (they fell below the threshold in 3 of 9 scenarios). The lateral deviation features (`kin_lateral_oscillation_ratio`, `cov_das_fiber_dist_std_m`) overlap with the range of normal OU drift when the weave amplitude is moderate. This is a principled observation: with the threshold set to keep false positives at 1%, low-amplitude lateral anomalies are below the detection limit. Adding targeted lateral features, such as the dominant frequency of lateral oscillation via FFT, or lowering the threshold would improve recall at the cost of more false positives.
 
-**CUSUM and Z-score are genuinely complementary.** In the speeding scenario, the Z-score correctly identifies `kin_speed_over_limit_frac` as the dominant feature at the end of the run, while CUSUM localizes the onset of the speed exceedance to within 2–3 seconds of when the driver started accelerating. Neither alone gives the full picture: the Z-score says *that* the vehicle is anomalous; CUSUM says *when* it became anomalous.
+**CUSUM and Z-score are genuinely complementary.** In the speeding scenario, the Z-score correctly identifies `kin_speed_over_limit_frac` as the dominant feature at the end of the run, while CUSUM localizes the onset of the speed exceedance to within 2–3 seconds of when the driver started accelerating. Neither alone gives the full picture: the Z-score says *that* the vehicle is anomalous, while CUSUM says *when* it became anomalous.
 
 ---
 
@@ -471,9 +471,9 @@ Physical model parameters (the Flamant–Boussinesq d₀ constant, SNR threshold
 | Representative cross-segment RMSE | **0.49 m** |
 | Mean RMSE across evaluation scenarios | **0.35 m** |
 | Maximum instantaneous error (representative run) | 1.52 m |
-| Tracking maintained across segment transitions | Yes — stable `global_track_id` |
+| Tracking maintained across segment transitions | Yes, with a stable `global_track_id` |
 
-The 0.49 m RMSE was achieved on a vehicle tracked across a segment boundary while fusing all three sensors. DAS provided high-rate, high-trust position updates along the fiber axis; camera measurements added 2D corrections; GPS provided occasional absolute fixes between DAS coverage zones.
+The 0.49 m RMSE was achieved on a vehicle tracked across a segment boundary while fusing all three sensors. DAS provided high-rate, high-trust position updates along the fiber axis. Camera measurements added 2D corrections, and GPS provided occasional absolute fixes between DAS coverage zones.
 
 ### 10.2 Anomaly Detection
 
@@ -489,15 +489,15 @@ The 0.49 m RMSE was achieved on a vehicle tracked across a segment boundary whil
 | 8 | Overweight | ✅ | `das_weight_anomaly` |
 | 9 | Reckless driving | ✅ | `iv_collision_risk_proxy` |
 
-**6 of 9 detected**, meeting the work-plan target of ≥ 5/10. The three missed anomalies (weaving, straddling, tailgating) are the most subtle — they do not create extreme kinematic values, only moderate deviations sustained over time. These are the natural targets for a deep learning follow-up that operates on raw trajectory sequences rather than hand-crafted features.
+**6 of 9 detected**, meeting the work-plan target of ≥ 5/10. The three missed anomalies (weaving, straddling, tailgating) are the most subtle: they do not create extreme kinematic values, only moderate deviations sustained over time. These are the natural targets for a deep learning follow-up that operates on raw trajectory sequences rather than hand-crafted features.
 
 ---
 
 ## 11. Real-World Validation: The Klausner Street Experiment
 
-Beyond simulation, the pipeline was exercised on a **real DAS + camera recording** taken on Klausner Street, beside the Tel Aviv University campus. The recording captured everyday urban traffic, including a clearly identifiable signature — a city bus decelerating to a halt at a bus stop — isolated from the raw DAS trace as event #4.
+Beyond simulation, the pipeline was exercised on a **real DAS + camera recording** taken on Klausner Street, beside the Tel Aviv University campus. The recording captured everyday urban traffic, including a clearly identifiable signature, a city bus decelerating to a halt at a bus stop, isolated from the raw DAS trace as event #4.
 
-The recorded event was replayed through the exact pipeline used in simulation — DAS event #4 fused with a co-located camera on the true Klausner Street geometry:
+The recorded event was replayed through the exact pipeline used in simulation, with DAS event #4 fused with a co-located camera on the true Klausner Street geometry:
 
 | Quantity | Real DAS event #4 + camera |
 |---|---|
@@ -508,19 +508,19 @@ The recorded event was replayed through the exact pipeline used in simulation �
 | Prediction-only rows | 42.1% |
 | Track duration | 41.8 s |
 
-The filter tracked the bus through a complete stop at meter-level accuracy — well within the project's ±5 m tolerance — running on prediction alone for 42% of the run, including gaps of up to 4 s. The per-sensor breakdown is instructive: the DAS channel was highly accurate, while the camera's measured error far exceeded its reported σ ≈ 0.2 m — surfacing exactly the failure mode the design anticipates (an over-confident optical sensor) and pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
+The filter tracked the bus through a complete stop at meter-level accuracy, well within the project's ±5 m tolerance, running on prediction alone for 42% of the run, including gaps of up to 4 s. The per-sensor breakdown is instructive: the DAS channel was highly accurate, while the camera's measured error far exceeded its reported σ ≈ 0.2 m, surfacing exactly the failure mode the design anticipates (an over-confident optical sensor) and pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
 
 ---
 
 <p align="center">
   <img src="maps/klausner/klausner_overview.png" alt="Klausner Street experiment location" width="700"/>
 </p>
-<p align="center"><em>Klausner Street beside the Tel Aviv University campus — the camera + DAS measurement site, on the real street network imported from OpenStreetMap.</em></p>
+<p align="center"><em>Klausner Street beside the Tel Aviv University campus, the camera + DAS measurement site, on the real street network imported from OpenStreetMap.</em></p>
 
 <p align="center">
   <a href="maps/klausner/bus%20stops/anomaly_report_klaussner_demo.xlsx"><img src="maps/klausner/bus%20stops/zscore_heatmap_klausner.png" alt="Feature Z-score heatmap, Klausner demo" width="760"/></a>
 </p>
-<p align="center"><em>Feature Z-score heatmap for the Klausner demo track — the top 30 of 156 model features, with stop/jerk and camera-sigma features saturating the 15.4σ threshold.</em></p>
+<p align="center"><em>Feature Z-score heatmap for the Klausner demo track, showing the top 30 of 156 model features, with stop/jerk and camera-sigma features saturating the 15.4σ threshold.</em></p>
 
 ## 12. Key Engineering Challenges and How We Solved Them
 
@@ -546,13 +546,13 @@ The filter tracked the bus through a complete stop at meter-level accuracy — w
 
 **The challenge.** Standard Kalman implementations use fixed R matrices. Our system's measurement quality varies enormously: a heavy truck at close range has SNR > 20 (σ_DAS < 0.4 m), while a motorcycle at the fiber offset limit has SNR ≈ 2 (σ_DAS > 1.4 m). A fixed R that is right for the truck is dangerously overconfident for the motorcycle.
 
-**The solution.** Every sensor event carries its physically derived σ as part of the payload, and the Kalman reads this value and sets R = σ² for that measurement, consistently across all three sensor types. The result is a filter that naturally adapts its trust level to the quality of each incoming measurement — a fundamental property of Bayesian filtering made practical by making the physics explicit in the sensor model.
+**The solution.** Every sensor event carries its physically derived σ as part of the payload, and the Kalman reads this value and sets R = σ² for that measurement, consistently across all three sensor types. The result is a filter that naturally adapts its trust level to the quality of each incoming measurement, a fundamental property of Bayesian filtering made practical by making the physics explicit in the sensor model.
 
 ### 12.5 Building a Representative Normal Baseline
 
-**The challenge.** A narrow normal baseline — trained only on typical light vehicles at full sensor coverage — would produce a model that flags trucks, stop-and-go traffic, and sensor dropouts as anomalous. The false-positive rate would be unacceptable.
+**The challenge.** A narrow normal baseline (trained only on typical light vehicles at full sensor coverage) would produce a model that flags trucks, stop-and-go traffic, and sensor dropouts as anomalous. The false-positive rate would be unacceptable.
 
-**The solution.** The 144-region training corpus was explicitly designed to cover the axes of normal variation: traffic density (sparse to heavy), vehicle types (light to heavy), and sensor deployment (full to minimal). Each axis was varied independently and in combination. The result is a baseline that knows a truck's DAS amplitude is not anomalous, a stop-and-go vehicle's braking is not anomalous, and a DAS-dark zone is not anomalous — letting the detector focus on genuine behavioral deviations.
+**The solution.** The 144-region training corpus was explicitly designed to cover the axes of normal variation: traffic density (sparse to heavy), vehicle types (light to heavy), and sensor deployment (full to minimal). Each axis was varied independently and in combination. The result is a baseline that knows a truck's DAS amplitude is not anomalous, a stop-and-go vehicle's braking is not anomalous, and a DAS-dark zone is not anomalous, letting the detector focus on genuine behavioral deviations.
 
 ### 12.6 Test-Guarded, Backward-Compatible Evolution
 
@@ -585,7 +585,7 @@ optical-fibers-smart-cities/
 │   └── docs/                   #   Anomaly-model flow + intel guide
 ├── maps/                       # OpenStreetMap networks (Florentin · North TLV · Klausner)
 │                               #   (north-TLV background tile images, ~11 GB, are kept out of
-│                               #    the repo — the simulator regenerates/downloads them on demand)
+│                               #    the repo, and the simulator regenerates/downloads them on demand)
 ├── scripts/                    # Entry points + batch helpers
 │   ├── run_app.py              #   Launch the desktop simulator
 │   ├── run_anomaly_pipeline.py #   End-to-end anomaly pipeline (simulate → extract)
@@ -607,8 +607,8 @@ optical-fibers-smart-cities/
 ### Requirements
 
 - **Python 3.9+** (3.10+ recommended)
-- **Tkinter** (bundled with the python.org installer; on Linux install `python3-tk`)
-- Packages: `pillow>=9.0`, `numpy>=1.21,<2`, `openpyxl>=3.0` (Excel export; falls back to CSV if absent), `matplotlib>=3.5,<3.9` (trajectory PNGs, PDF audit report, live GUI plot), and `python-docx>=1.0` (Word audit report). The anomaly model additionally uses `pandas` and `scikit-learn`.
+- **Tkinter** (bundled with the python.org installer, on Linux install `python3-tk`)
+- Packages: `pillow>=9.0`, `numpy>=1.21,<2`, `openpyxl>=3.0` (Excel export, falls back to CSV if absent), `matplotlib>=3.5,<3.9` (trajectory PNGs, PDF audit report, live GUI plot), and `python-docx>=1.0` (Word audit report). The anomaly model additionally uses `pandas` and `scikit-learn`.
 
 ### Installation
 
@@ -616,10 +616,10 @@ optical-fibers-smart-cities/
 git clone https://github.com/noasapir3/simstudio-das-fusion.git
 cd simstudio-das-fusion
 
-# Option A — pip (editable install)
+# Option A: pip (editable install)
 pip install -e .
 
-# Option B — first-time setup script (macOS)
+# Option B: first-time setup script (macOS)
 bash scripts/install.sh
 ```
 
@@ -689,4 +689,4 @@ pytest -q
 
 ---
 
-*Academic project — Tel Aviv University, School of Electrical Engineering, 2025–2026.*
+*Academic project, Tel Aviv University, School of Electrical Engineering, 2025–2026.*
