@@ -58,6 +58,11 @@ Because dedicated DAS interrogator hardware and an instrumented street were not 
 
 ---
 
+<p align="center">
+  <img src="maps/north_TLV/overview.png" alt="North Tel Aviv road network" width="760"/>
+</p>
+<p align="center"><em>The North Tel Aviv (south) road network imported from OpenStreetMap — the 144 simulation regions that seed the normal-driving baseline.</em></p>
+
 ## 3. System Architecture
 
 The system is organized as a strictly one-directional pipeline of loosely coupled stages, connected by a shared **EventBus**:
@@ -268,6 +273,11 @@ After the fix, GPS measurements reached the correct confirmed track, ghost track
 
 ---
 
+<p align="center">
+  <img src="assets/track_xy_fused_T000002.png" alt="Fused cross-segment track vs ground truth" width="700"/>
+</p>
+<p align="center"><em>A single vehicle tracked across four street segments (3 transitions) by fusing DAS, camera, and GPS — position RMSE 0.37 m, max error 1.11 m.</em></p>
+
 ## 7. Kalman Filter Fusion
 
 ### 7.1 State Model
@@ -395,6 +405,11 @@ The threshold was chosen as the 99th percentile of `max_z` across all vehicles i
 
 ---
 
+<p align="center">
+  <img src="assets/top_anomalous_features.png" alt="Top anomalous features vs normal training distribution" width="760"/>
+</p>
+<p align="center"><em>The flagged vehicle (red dashed) against the learned normal distribution for its top-scoring features — speed, speed excess, and lateral velocity all fall far outside the ±4σ envelope.</em></p>
+
 ## 9. The Simulation Experiment
 
 ### 9.1 Designing the Normal Baseline
@@ -495,6 +510,16 @@ Two runs were performed:
 The DAS-only reconstruction tracked the bus through a complete stop at sub-meter accuracy — coasting on prediction for 49% of the run during the dwell yet never losing the track — supporting the fidelity of the Flamant–Boussinesq strain model and the SNR-driven noise model. The mixed real run surfaced exactly the failure mode the design anticipates: an optical sensor reporting tighter uncertainty than it deserves (camera reported σ ≈ 0.2 m but measured RMSE 2.49 m), degrading the fused estimate — pointing to per-deployment camera calibration as the first step before a larger field campaign. See Section 5.6 of the [project report](submissions/report/Final_Project_Report_final.docx).
 
 ---
+
+<p align="center">
+  <img src="maps/klausner/klausner_overview.png" alt="Klausner Street experiment location" width="700"/>
+</p>
+<p align="center"><em>Klausner Street beside the Tel Aviv University campus — the camera + DAS measurement site, on the real street network imported from OpenStreetMap.</em></p>
+
+<p align="center">
+  <img src="assets/zscore_heatmap_klausner.png" alt="Feature Z-score heatmap, Klausner demo" width="760"/>
+</p>
+<p align="center"><em>Feature Z-score heatmap for the Klausner demo track — the top 30 of 156 model features, with stop/jerk and camera-sigma features saturating the 15.4σ threshold.</em></p>
 
 ## 12. Key Engineering Challenges and How We Solved Them
 
