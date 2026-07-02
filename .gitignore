@@ -1,21 +1,9 @@
-# Python
 __pycache__/
 *.py[cod]
-*.egg-info/
-.venv/
-venv/
-build/
-dist/
-
-# macOS
+.pytest_cache/
 .DS_Store
+.venv/
+*.egg-info/
 
-# Large / regenerable outputs
-maps/cache/
-results/**/*.png
-results/**/*.xlsx
-*.log
-
-# IDE
-.idea/
-.vscode/
+# 11 GB of map background tiles — too large for GitHub; regenerated on demand
+maps/north_TLV/tiles_north_tlv_south/

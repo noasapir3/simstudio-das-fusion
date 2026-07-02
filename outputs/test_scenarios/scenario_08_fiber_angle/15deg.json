@@ -1,0 +1,93 @@
+{
+  "_description": "SCENARIO 8 \u2014 fiber angle 15\u00b0. Road and DAS fiber are tilted 15\u00b0 from x-axis. Vehicle heading matches road direction. Validates update_velocity_fiber geometric projection: H=[0,cos(\u03b8),0,0,sin(\u03b8),0] correctly separates vx=0.9659*v and vy=0.2588*v. Old x-only code would assign vx=v regardless of heading (overestimate for \u03b8>0).",
+  "_check": {
+    "fiber_angle_deg": 15,
+    "expected_vx_mps": 13.426,
+    "expected_vy_mps": 3.598,
+    "rmse_vel_max_mps": 2.0,
+    "note": "Kalman vx and vy after convergence should match expected_vx/vy."
+  },
+  "nodes": {
+    "n1": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "n2": {
+      "x": 289.7777,
+      "y": 77.6457
+    }
+  },
+  "segments": {
+    "seg1": {
+      "id": "seg1",
+      "n0": "n1",
+      "n1": "n2",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 25.0,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "light"
+    }
+  },
+  "lanes": {
+    "seg1_fwd_lane1": {
+      "id": "seg1_fwd_lane1",
+      "segment_id": "seg1",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          289.7777,
+          77.6457
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "veh1": {
+      "id": "veh1",
+      "lane_id": "seg1_fwd_lane1",
+      "s": 5.0,
+      "v": 13.9,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1500.0,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 13.9,
+      "speed_std_mps": 0.0,
+      "speed_min_mps": 13.9,
+      "speed_max_mps": 13.9,
+      "target_speed_mps": 13.9,
+      "speed_change_interval_mean_s": 300.0,
+      "speed_change_interval_min_s": 200.0,
+      "speed_change_interval_max_s": 400.0,
+      "next_speed_change_t": 1000.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 1.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.0,
+      "max_decel_mps2": 2.0,
+      "heading_rad": 0.261799,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    }
+  },
+  "gps": {},
+  "cameras": {},
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "seg1",
+      "channel_start": 0,
+      "channel_end": 300,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "auto_spawn": false
+}

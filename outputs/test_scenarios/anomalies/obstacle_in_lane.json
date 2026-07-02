@@ -1,0 +1,92 @@
+{
+  "nodes": {
+    "A": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "B": {
+      "x": 500.0,
+      "y": 0.0
+    }
+  },
+  "segments": {
+    "S": {
+      "id": "S",
+      "n0": "A",
+      "n1": "B",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "S_fwd_lane1": {
+      "id": "S_fwd_lane1",
+      "segment_id": "S",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          500.0,
+          0.0
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "PED": {
+      "id": "PED",
+      "lane_id": "S_fwd_lane1",
+      "s": 60.0,
+      "v": 0.0,
+      "weight_kg": 80.0,
+      "speed_min_mps": 0.0,
+      "speed_max_mps": 0.0,
+      "target_speed_mps": 0.0,
+      "speed_mean_mps": 0.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "frozen": true,
+      "object_type": "pedestrian"
+    },
+    "CAR": {
+      "id": "CAR",
+      "lane_id": "S_fwd_lane1",
+      "s": 10.0,
+      "v": 13.9,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 13.9,
+      "speed_max_mps": 13.9,
+      "target_speed_mps": 13.9,
+      "speed_mean_mps": 13.9,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8
+    }
+  },
+  "gps": {},
+  "cameras": {},
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "S",
+      "channel_start": 0,
+      "channel_end": 500,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "auto_spawn": false,
+  "_description": "Obstacle in lane: frozen Vehicle with weight_kg=80 and object_type='pedestrian' \u2014 DAS signature scales with W, IDM treats it as a stopped leader."
+}

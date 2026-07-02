@@ -1,0 +1,152 @@
+{
+  "nodes": {
+    "n1": {
+      "x": -129.5,
+      "y": -6.5
+    },
+    "n2": {
+      "x": 4.5,
+      "y": -1.5
+    },
+    "n3": {
+      "x": 130.5,
+      "y": -33.5
+    }
+  },
+  "segments": {
+    "seg1": {
+      "id": "seg1",
+      "n0": "n1",
+      "n1": "n2",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2": {
+      "id": "seg2",
+      "n0": "n2",
+      "n1": "n3",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "seg1_fwd_lane1": {
+      "id": "seg1_fwd_lane1",
+      "segment_id": "seg1",
+      "offset_index": 0,
+      "polyline": [
+        [
+          -129.5,
+          -6.5
+        ],
+        [
+          4.5,
+          -1.5
+        ]
+      ]
+    },
+    "seg2_fwd_lane1": {
+      "id": "seg2_fwd_lane1",
+      "segment_id": "seg2",
+      "offset_index": 0,
+      "polyline": [
+        [
+          4.5,
+          -1.5
+        ],
+        [
+          130.5,
+          -33.5
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "veh1": {
+      "id": "veh1",
+      "lane_id": "seg1_fwd_lane1",
+      "s": 19.061361987736873,
+      "v": 21.087989783415207,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1500.0,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 19.34841786862774,
+      "speed_std_mps": 1.7978468862071126,
+      "speed_min_mps": 11.099951526709026,
+      "speed_max_mps": 21.087989783415207,
+      "target_speed_mps": 21.087989783415207,
+      "speed_change_interval_mean_s": 6.565421249401154,
+      "speed_change_interval_min_s": 4.51844314667761,
+      "speed_change_interval_max_s": 8.612399352124697,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 2.4496566662002524,
+      "max_decel_mps2": 4.4930396590459,
+      "heading_rad": 0.0,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0,
+      "ignore_speed_limit": false,
+      "min_gap_m": 0.0,
+      "time_headway_s": 0.0,
+      "disable_idm": false,
+      "frozen": false,
+      "allow_collision": false,
+      "a_cmd_override_mps2": 0.0,
+      "a_cmd_override_until_t": 0.0,
+      "lateral_mode": "ou",
+      "lateral_fixed_offset_m": 0.0,
+      "lateral_weave_amplitude_m": 0.0,
+      "lateral_weave_period_s": 0.0,
+      "lateral_weave_phase_rad": 0.0,
+      "lateral_window_start_t": 0.0,
+      "lateral_window_until_t": 0.0,
+      "lateral_drift_rate_mps": 0.0,
+      "lateral_random_sigma_m": 0.0,
+      "lateral_random_seed": 0,
+      "object_type": "vehicle"
+    }
+  },
+  "gps": {
+    "gps1": {
+      "id": "gps1",
+      "x": -19.5,
+      "y": -1.5,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 25.0
+    }
+  },
+  "cameras": {
+    "cam1": {
+      "id": "cam1",
+      "x": -128.5,
+      "y": -1.5,
+      "heading_rad": 0.3805063771123649,
+      "fov_deg": 70.0,
+      "range_m": 220.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "seg2",
+      "channel_start": 0,
+      "channel_end": 1200,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "_description": "High-speed (80 km/h) panic brake at -8 m/s^2.",
+  "nodes": {
+    "A": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "B": {
+      "x": 600.0,
+      "y": 0.0
+    }
+  },
+  "segments": {
+    "S": {
+      "id": "S",
+      "n0": "A",
+      "n1": "B",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 22.22222222222222,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "S_fwd_lane1": {
+      "id": "S_fwd_lane1",
+      "segment_id": "S",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          600.0,
+          0.0
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "V1": {
+      "id": "V1",
+      "lane_id": "S_fwd_lane1",
+      "s": 50.0,
+      "v": 22.2,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 22.2,
+      "speed_max_mps": 22.2,
+      "target_speed_mps": 22.2,
+      "speed_mean_mps": 22.2,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "a_cmd_override_mps2": -8.0,
+      "a_cmd_override_until_t": 3.5
+    }
+  },
+  "gps": {
+    "gps1": {
+      "id": "gps1",
+      "x": 300.0,
+      "y": 0.0,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 360.0
+    }
+  },
+  "cameras": {
+    "cam1": {
+      "id": "cam1",
+      "x": -5.0,
+      "y": 0.0,
+      "heading_rad": 0.0,
+      "fov_deg": 70.0,
+      "range_m": 220.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "S",
+      "channel_start": 0,
+      "channel_end": 600,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "auto_spawn": false
+}

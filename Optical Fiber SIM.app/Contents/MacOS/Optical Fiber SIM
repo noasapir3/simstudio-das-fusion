@@ -1,0 +1,45 @@
+#!/bin/bash
+# Launcher for Optical Fiber SIM
+
+LOG="$HOME/Desktop/optical_fiber_sim_launch.log"
+exec > "$LOG" 2>&1
+
+echo "=== Launch started ==="
+date
+
+# Resolve project root relative to this .app bundle
+APP_DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
+RUN_SCRIPT="$APP_DIR/scripts/run_app.py"
+
+echo "APP_DIR: $APP_DIR"
+echo "RUN_SCRIPT: $RUN_SCRIPT"
+echo "RUN_SCRIPT exists: $(test -f "$RUN_SCRIPT" && echo YES || echo NO)"
+
+# Load shell profile so PATH includes conda/venv/homebrew
+source ~/.zshrc 2>/dev/null || source ~/.bash_profile 2>/dev/null || true
+
+echo "PATH: $PATH"
+
+# Try common Python locations
+for PYTHON in python3 /usr/local/bin/python3 /opt/homebrew/bin/python3 /usr/bin/python3; do
+    if command -v "$PYTHON" &>/dev/null; then
+        echo "Using Python: $PYTHON -> $(command -v $PYTHON)"
+        export SIM_APP_DIR="$APP_DIR"
+        exec "$PYTHON" -c "
+import sys, os
+app_dir = os.environ.get('SIM_APP_DIR', 'NOT_SET')
+src_path = app_dir + '/src'
+print('SIM_APP_DIR =', repr(app_dir))
+print('src_path =', repr(src_path))
+print('src exists =', os.path.isdir(src_path))
+sys.path.insert(0, src_path)
+print('sys.path =', sys.path[:3])
+from simstudio.gui.app import run
+run()
+"
+        break
+    fi
+done
+
+echo "ERROR: No Python found"
+osascript -e 'display alert "Optical Fiber SIM" message "Could not find Python 3. Please install Python 3 and try again."'

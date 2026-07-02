@@ -1,0 +1,78 @@
+{
+  "nodes": {
+    "A": {
+      "x": 0.0,
+      "y": 0.0
+    },
+    "B": {
+      "x": 500.0,
+      "y": 0.0
+    }
+  },
+  "segments": {
+    "S": {
+      "id": "S",
+      "n0": "A",
+      "n1": "B",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.9,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "S_fwd_lane1": {
+      "id": "S_fwd_lane1",
+      "segment_id": "S",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          500.0,
+          0.0
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "V1": {
+      "id": "V1",
+      "lane_id": "S_fwd_lane1",
+      "s": 20.0,
+      "v": 13.9,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 13.9,
+      "speed_max_mps": 13.9,
+      "target_speed_mps": 13.9,
+      "speed_mean_mps": 13.9,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "lateral_mode": "weave",
+      "lateral_weave_amplitude_m": 2.5,
+      "lateral_weave_period_s": 4.0
+    }
+  },
+  "gps": {},
+  "cameras": {},
+  "das": {
+    "das1": {
+      "id": "das1",
+      "segment_id": "S",
+      "channel_start": 0,
+      "channel_end": 500,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "auto_spawn": false,
+  "_description": "Weaving: lateral_mode='weave' with amplitude 2.5 m, period 4 s \u2014 vehicle oscillates beyond the \u00b1half-lane clamp used in normal driving."
+}

@@ -1,0 +1,337 @@
+{
+  "_description": "Demo: every supported anomaly class in one simulation.  Four parallel 800 m one-way roads stacked top-to-bottom (20 m apart).  Designed so all anomaly events fire within the first ~12 seconds and remain visually clear for at least 30 s.",
+  "_demo_layout": {
+    "road_NORTH      (y=+30, lane Snorth_fwd_lane1)": "weaving lane",
+    "road_MIDDLE     (y=+10, lane Smiddle_fwd_lane1)": "obstacle + braking chain",
+    "road_SOUTH      (y=-10, lane Ssouth_fwd_lane1)": "collision pair",
+    "road_FAR_SOUTH  (y=-30, lane Sfarsouth_fwd_lane1)": "route-complete + normal cruiser"
+  },
+  "_demo_timeline": [
+    "t=0.0  WEAVER (NORTH) oscillates +/-2.5 m at 4 s period \u2014 visible immediately.",
+    "t=0.0  OBSTACLE_PED (MIDDLE, s=300) is a stationary pedestrian (yellow diamond).",
+    "t=0.0  STOPPER (MIDDLE, s=80, v=22.2) approaches the pedestrian.",
+    "t=0.0  TAILBACK (MIDDLE, s=20, v=22.2) follows STOPPER 60 m behind.",
+    "t=0.0  WALL (SOUTH, s=160, v=0, frozen) is a stalled car.",
+    "t=0.0  CRASHER (SOUTH, s=20, v=22.2, allow_collision+disable_idm) drives at WALL.",
+    "t=0.0  ROUTE_DEMO (FAR_SOUTH, s=80, v=10) has a planned route to s=180.",
+    "t=0.0  CRUISER (FAR_SOUTH, s=300, v=15) drives normally \u2014 visual baseline.",
+    "t~6.3  CRASHER hits WALL \u2014 both gain a red warning triangle (one collision event).",
+    "t~10.0 STOPPER stops cleanly behind OBSTACLE_PED \u2014 IDM braking, no marker.",
+    "t~10.0 ROUTE_DEMO reaches s=180 \u2014 gains the blue X (world.route_complete).",
+    "t~12.0 TAILBACK has fully stopped behind STOPPER (chain stop, no marker).",
+    "t~30+  CRUISER continues normally; WEAVER continues weaving."
+  ],
+  "_demo_visual_legend": {
+    "yellow_diamond_with_exclamation": "Road obstacle (Vehicle.object_type != 'vehicle').",
+    "red_warning_triangle": "Collision marker (world.collision event).  Drawn on BOTH vehicles in the pair.",
+    "blue_X": "Vehicle completed its planned route (world.route_complete).",
+    "blue_rectangle": "Normal vehicle, fill darker for heavier vehicles.",
+    "no_special_marker_when_stopped": "A stopped non-obstacle vehicle stays a regular blue rectangle but still acts as a physical IDM leader."
+  },
+  "nodes": {
+    "AN": {
+      "x": 0.0,
+      "y": 30.0
+    },
+    "BN": {
+      "x": 800.0,
+      "y": 30.0
+    },
+    "AM": {
+      "x": 0.0,
+      "y": 10.0
+    },
+    "BM": {
+      "x": 800.0,
+      "y": 10.0
+    },
+    "AS": {
+      "x": 0.0,
+      "y": -10.0
+    },
+    "BS": {
+      "x": 800.0,
+      "y": -10.0
+    },
+    "AF": {
+      "x": 0.0,
+      "y": -30.0
+    },
+    "BF": {
+      "x": 800.0,
+      "y": -30.0
+    }
+  },
+  "segments": {
+    "Snorth": {
+      "id": "Snorth",
+      "n0": "AN",
+      "n1": "BN",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 22.2,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "Smiddle": {
+      "id": "Smiddle",
+      "n0": "AM",
+      "n1": "BM",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 22.2,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "Ssouth": {
+      "id": "Ssouth",
+      "n0": "AS",
+      "n1": "BS",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 22.2,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "Sfarsouth": {
+      "id": "Sfarsouth",
+      "n0": "AF",
+      "n1": "BF",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 22.2,
+      "points": [],
+      "one_way": true,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "Snorth_fwd_lane1": {
+      "id": "Snorth_fwd_lane1",
+      "segment_id": "Snorth",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          30.0
+        ],
+        [
+          800.0,
+          30.0
+        ]
+      ]
+    },
+    "Smiddle_fwd_lane1": {
+      "id": "Smiddle_fwd_lane1",
+      "segment_id": "Smiddle",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          800.0,
+          10.0
+        ]
+      ]
+    },
+    "Ssouth_fwd_lane1": {
+      "id": "Ssouth_fwd_lane1",
+      "segment_id": "Ssouth",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          -10.0
+        ],
+        [
+          800.0,
+          -10.0
+        ]
+      ]
+    },
+    "Sfarsouth_fwd_lane1": {
+      "id": "Sfarsouth_fwd_lane1",
+      "segment_id": "Sfarsouth",
+      "offset_index": 0,
+      "polyline": [
+        [
+          0.0,
+          -30.0
+        ],
+        [
+          800.0,
+          -30.0
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "WEAVER": {
+      "id": "WEAVER",
+      "lane_id": "Snorth_fwd_lane1",
+      "s": 20.0,
+      "v": 18.0,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 18.0,
+      "speed_max_mps": 18.0,
+      "target_speed_mps": 18.0,
+      "speed_mean_mps": 18.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "lateral_mode": "weave",
+      "lateral_weave_amplitude_m": 2.5,
+      "lateral_weave_period_s": 4.0
+    },
+    "OBSTACLE_PED": {
+      "id": "OBSTACLE_PED",
+      "lane_id": "Smiddle_fwd_lane1",
+      "s": 300.0,
+      "v": 0.0,
+      "weight_kg": 80.0,
+      "speed_min_mps": 0.0,
+      "speed_max_mps": 0.0,
+      "target_speed_mps": 0.0,
+      "speed_mean_mps": 0.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "frozen": true,
+      "object_type": "pedestrian"
+    },
+    "STOPPER": {
+      "id": "STOPPER",
+      "lane_id": "Smiddle_fwd_lane1",
+      "s": 80.0,
+      "v": 22.2,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 22.2,
+      "speed_max_mps": 22.2,
+      "target_speed_mps": 22.2,
+      "speed_mean_mps": 22.2,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8
+    },
+    "TAILBACK": {
+      "id": "TAILBACK",
+      "lane_id": "Smiddle_fwd_lane1",
+      "s": 20.0,
+      "v": 22.2,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 22.2,
+      "speed_max_mps": 22.2,
+      "target_speed_mps": 22.2,
+      "speed_mean_mps": 22.2,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8
+    },
+    "WALL": {
+      "id": "WALL",
+      "lane_id": "Ssouth_fwd_lane1",
+      "s": 160.0,
+      "v": 0.0,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 0.0,
+      "speed_max_mps": 0.0,
+      "target_speed_mps": 0.0,
+      "speed_mean_mps": 0.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "frozen": true
+    },
+    "CRASHER": {
+      "id": "CRASHER",
+      "lane_id": "Ssouth_fwd_lane1",
+      "s": 20.0,
+      "v": 22.2,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 22.2,
+      "speed_max_mps": 22.2,
+      "target_speed_mps": 22.2,
+      "speed_mean_mps": 22.2,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8,
+      "allow_collision": true,
+      "disable_idm": true
+    },
+    "ROUTE_DEMO": {
+      "id": "ROUTE_DEMO",
+      "lane_id": "Sfarsouth_fwd_lane1",
+      "s": 80.0,
+      "v": 10.0,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 10.0,
+      "speed_max_mps": 10.0,
+      "target_speed_mps": 10.0,
+      "speed_mean_mps": 10.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8
+    },
+    "CRUISER": {
+      "id": "CRUISER",
+      "lane_id": "Sfarsouth_fwd_lane1",
+      "s": 300.0,
+      "v": 15.0,
+      "weight_kg": 1500.0,
+      "speed_min_mps": 15.0,
+      "speed_max_mps": 15.0,
+      "target_speed_mps": 15.0,
+      "speed_mean_mps": 15.0,
+      "speed_std_mps": 0.0,
+      "max_accel_mps2": 1.5,
+      "max_decel_mps2": 2.6,
+      "accel_response_s": 0.8
+    }
+  },
+  "gps": {
+    "gps_centre": {
+      "id": "gps_centre",
+      "x": 400.0,
+      "y": 0.0,
+      "sigma_m": 2.5,
+      "update_hz": 5.0,
+      "radius_m": 500.0
+    }
+  },
+  "cameras": {
+    "cam_centre": {
+      "id": "cam_centre",
+      "x": -10.0,
+      "y": 0.0,
+      "heading_rad": 0.0,
+      "fov_deg": 110.0,
+      "range_m": 500.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das_middle": {
+      "id": "das_middle",
+      "segment_id": "Smiddle",
+      "channel_start": 0,
+      "channel_end": 800,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "auto_spawn": false
+}

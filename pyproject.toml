@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simstudio"
+version = "0.3.0"
+description = "SimStudio - standalone simulation workspace (Stage B)"
+requires-python = ">=3.9"
+# pillow      — required for the Map Import window (OSM tile rendering).
+# numpy       — required for the Kalman filter; hard import at startup.
+#               Pinned <2 to avoid the NumPy 2.x / matplotlib ABI mismatch
+#               ("_ARRAY_API not found") until matplotlib ships a numpy-2 wheel.
+# openpyxl    — required for Excel export; app falls back to CSV if missing.
+# matplotlib  — required for trajectory PNG export, PDF audit report, and the
+#               GUI's real-time plot panel (TkAgg backend).
+# python-docx — required for Word (.docx) audit report export.
+dependencies = [
+    "pillow>=9.0",
+    "numpy>=1.21,<2",
+    "openpyxl>=3.0",
+    "matplotlib>=3.5,<3.9",
+    "python-docx>=1.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
