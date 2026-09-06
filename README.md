@@ -54,7 +54,7 @@ Prior work from the group of Prof. Khen Cohen and Alon Lellouch at Tel Aviv Univ
 
 Answering this question has direct smart-city applications. Traffic authorities need low-cost, continuous knowledge of how vehicles move through a city and when something goes wrong, such as a sudden stop, a stalled car, or a collision in progress. Existing systems are either point-detectors (loop inductors, radar) that lose track of vehicles between measurements, or camera networks that raise privacy concerns and require significant maintenance. A fiber-optic system reuses already-deployed infrastructure and is inherently distributed: a single fiber run beside a street provides continuous coverage along the entire road, regardless of intersections, lighting conditions, or weather.
 
-Because dedicated DAS interrogator hardware and an instrumented street were not available within the project timeframe, we pursued both objectives through a **physically grounded simulator** that reproduces the relevant physics: the Flamant–Boussinesq ground-strain model for DAS amplitude, SNR-dependent detection probability, a pinhole camera model with range-dependent noise, and GPS noise that grows with distance from the receiver. The simulator uses real OpenStreetMap geometry for the road network, so vehicles travel along actual Tel Aviv streets with correct lane counts, speed limits, and topology.
+Because dedicated DAS interrogator hardware and an instrumented street were not available within the project timeframe, we pursued both objectives through a **physically grounded simulator** that reproduces the relevant physics: the Flamant–Boussinesq ground-strain model for DAS amplitude, SNR-dependent measurement uncertainty, a pinhole camera model with range-dependent noise, and GPS noise that grows with distance from the receiver. The simulator uses real OpenStreetMap geometry for the road network, so vehicles travel along actual Tel Aviv streets with correct lane counts, speed limits, and topology.
 
 ---
 
@@ -164,39 +164,31 @@ W is vehicle weight in kg (used as a proxy for ground force), r is the perpendic
 
 The strain amplitude is spread into neighboring fiber channels with a Gaussian kernel (σ² = 9 channels) to simulate the spatial spreading of vibration. White noise is added to produce the raw fiber trace, and a simulated peak-finder extracts the measured fiber arc-length position.
 
-**SNR and detection probability.** Signal-to-noise ratio is computed as A / noise_std. Detection follows a sigmoid in SNR² space:
+**SNR.** The signal-to-noise ratio is the strain amplitude measured against the sensor's noise reference level:
 
 ```
-p_detect = SNR² / (SNR² + t²)        t = snr_det_threshold (default 2.0)
+SNR = A / snr_th        snr_th = 8.0 (default; 6.0 / 10.0 for light / heavy traffic)
 ```
 
-At SNR = t the vehicle is detected 50% of the time. Missed detections publish a `sensor.das_miss` event, so the audit trail captures every non-detection explicitly.
+Detection and association are assumed solved: every active vehicle within the sensor's segment produces exactly one measurement per update. There are no missed detections, so the DAS block is a clean noise-only model that isolates the measurement-uncertainty question from the separate problem of event detection.
 
 **SNR-derived position uncertainty.** The Kalman measurement noise is not a fixed constant, but is derived from the SNR at each timestep:
 
 ```
-σ_DAS = max(0.8,  k_DAS / √SNR)      k_DAS = 2.0 m
+σ_DAS = max(0.3,  k_DAS / √SNR)      k_DAS = 2.0 m
+σ_pos = √(σ_DAS² + σ_lane²)          σ_lane = 0.2 m
 ```
 
-A heavy vehicle close to the fiber produces a low-uncertainty measurement that the Kalman trusts heavily, while a light or distant vehicle produces a high-uncertainty measurement that is down-weighted automatically. No manual tuning is required.
-
-**Systematic position bias.** To mimic a real DAS artifact (peak-finding bias when the signal is partly buried in noise), the simulator adds a random-sign systematic term:
-
-```
-s_meas = s_fiber + N(0, σ_x) + β
-β = ±bias_k / SNR      bias_k = 0.5 m
-```
-
-The random sign per tick means the bias is not persistent (it does not cause long-term drift), but it inflates the effective noise floor at low SNR.
-
-**Multi-vehicle peak merging.** When two vehicles are closer than ~10 m along the fiber, their strain peaks overlap. The simulator detects this and either merges them into a single measurement or shifts their centroids toward each other, logging the merge state (`clean / merged / attracted`) in the event payload.
+Two independent Gaussian terms are injected: the SNR-derived sensor error, and a constant intra-lane term that reflects the unknown position of the vehicle across its lane. A heavy vehicle close to the fiber produces a low-uncertainty measurement that the Kalman trusts heavily, while a light or distant vehicle produces a high-uncertainty measurement that is down-weighted automatically. No manual tuning is required.
 
 **DAS velocity.** In addition to position, DAS measures the along-fiber component of vehicle speed:
 
 ```
-z_fiber = v_true · cos(heading_road − θ_fiber)
-σ_v = max(0.10,  k_v / √SNR)      k_v = 3.0 m/s
+v = (x_k − x_{k−1}) / Δt                      2-D finite difference
+σ_v = max(0.10,  √2 · σ_pos / Δt)
 ```
+
+Velocity is not measured directly. It is differenced from two consecutive noisy position measurements, so its uncertainty is large at high update rates (about 19 m/s at 30 Hz) and the Kalman filter down-weights it accordingly. The first sample of each vehicle has no predecessor and therefore publishes no velocity.
 
 The velocity measurement and its uncertainty are forwarded to the Kalman filter as a separate update.
 
@@ -208,7 +200,15 @@ The camera sensor uses a **pinhole projection model**. Each camera has a field-o
 conf = 0.15 + 0.83 · (1 − r/r_max)^1.35 · (0.55 + 0.45 · (1 − |θ|/θ_max))
 ```
 
-Position uncertainty has three components: a fixed floor, a range-proportional term, and an off-axis distortion term. A frame is stochastically skipped if `random() > conf`, modeling partial occlusion and low-confidence detections.
+Position uncertainty has a fixed floor, a range-proportional term and an off-axis distortion term:
+
+```
+σ_cam = σ₀ + k_r · r + k_θ · |Δθ|
+σ₀ = 0.10 m,  k_θ = 0.15 m/rad,  k_r = σ_px / f_px ≈ 0.0016
+f_px = (1280/2) / tan(FOV/2) = 914 px  for a 70° field of view,  σ_px = 1.5 px
+```
+
+The range coefficient is the only sensor constant in the project derived from a real instrument model rather than calibration: it is the pinhole mapping of a 1.5-pixel localization error into metres. A frame is stochastically skipped if `random() > conf`, modeling partial occlusion and low-confidence detections.
 
 The camera provides a full 2D (x, y) position measurement, unlike DAS which is 1D along the fiber, and updates both axes of the Kalman filter simultaneously. Camera confidence is used to scale the measurement noise: `σ_eff = σ_cam / √conf`.
 
@@ -217,10 +217,10 @@ The camera provides a full 2D (x, y) position measurement, unlike DAS which is 1
 The GPS sensor fires once per second for every vehicle within its radius. Noise grows with distance from the sensor center:
 
 ```
-σ_gps = max(0.20,  σ₀ · (1 + 0.35 · (r / r_max)²))
+σ_gps = σ₀ · (1 + 0.35 · (r / r_max)²)
 ```
 
-GPS provides an absolute 2D position fix but at low rate and relatively high noise (σ₀ ≈ 2.5 m), making it a complementary sanity-check between DAS coverage zones rather than the primary locator. The trust ratio between DAS and GPS in the Kalman filter is approximately 64:1 per measurement (R_DAS ≈ 0.5 m², R_GPS ≈ 32 m²).
+GPS provides an absolute 2D position fix but at low rate and relatively high noise (σ₀ ≈ 2.5 m), making it a complementary sanity-check between DAS coverage zones rather than the primary locator. The trust ratio between DAS and GPS in the Kalman filter is two orders of magnitude per measurement (R_DAS ≈ 0.1–0.3 m², R_GPS ≈ 40 m² in recorded runs).
 
 ---
 
@@ -245,7 +245,7 @@ Tracks older than 5 seconds or farther than 20 m are excluded. The lowest-cost t
 
 ### 6.2 Tentative vs. Confirmed Tracks
 
-Every new track is born **tentative**. It is only **confirmed** after 3 consecutive sensor hits agree on the same kinematic identity. This prevents ghost tracks (spurious DAS hits from noise or multi-vehicle peak merging) from polluting the output. A DAS ghost born from a single fiber hit stays tentative unless two more measurements corroborate it within 5 seconds.
+Every new track is born **tentative**. It is only **confirmed** after 3 consecutive sensor hits agree on the same kinematic identity. This prevents ghost tracks (spurious DAS hits that fall just outside an existing track's gate) from polluting the output. A DAS ghost born from a single fiber hit stays tentative unless two more measurements corroborate it within 5 seconds.
 
 ### 6.3 The Ghost-Track / GPS Fragmentation Bug and Fix
 
@@ -324,9 +324,11 @@ The three sensors update different subsets of the state:
 
 The key to the fusion working well is that every sensor forwards its **physically derived uncertainty** to the Kalman filter as its measurement noise R. R is therefore not a fixed constant but changes with each measurement:
 
-- DAS: `R_x = max(0.8, 2.0/√SNR)²`
-- Camera: `R_xy = σ_cam² / conf`
-- GPS: `R_xy = (σ₀ · (1 + 0.35·(r/r_max)²))²`
+One rule covers all three sensors: each measurement's confidence scales its reported σ before the covariance is formed.
+
+```
+σ_eff = max(0.05,  σ / √conf)        R = σ_eff²
+```
 
 This dynamic R is what makes complementary fusion work: across DAS coverage zones the filter trusts DAS heavily. In DAS-dark zones it relies on camera and GPS to prevent covariance from growing too large.
 
