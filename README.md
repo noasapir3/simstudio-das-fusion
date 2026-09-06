@@ -85,7 +85,6 @@ src/simstudio/
 
 anomaly_model/
 ├── feature_extractor.py     Trajectory → 166-feature behavioral fingerprint
-├── cusum_detector.py        Page's CUSUM on NIS_x (temporal onset detector)
 └── scripts/scenario_scorer.py   Per-feature Z-score scoring (numpy-only)
 ```
 
@@ -332,18 +331,6 @@ One rule covers all three sensors: each measurement's confidence scales its repo
 
 This dynamic R is what makes complementary fusion work: across DAS coverage zones the filter trusts DAS heavily. In DAS-dark zones it relies on camera and GPS to prevent covariance from growing too large.
 
-### 7.6 Innovation Logging (NIS)
-
-After every measurement update, the filter logs the **pre-update innovation** and the innovation covariance:
-
-```
-ν_x = z_x − (H · x̂⁻)_x
-S_xx = (H · P⁻ · Hᵀ + R)_xx
-NIS_x = ν_x² / S_xx
-```
-
-Under a consistent, well-calibrated filter, NIS_x follows a χ²(1) distribution with expected value 1.0. A sustained rise above 1.0 indicates that reality has diverged from the model's prediction, the signature of an anomaly. Prediction-only rows carry NaN for all innovation fields.
-
 ---
 
 ## 8. Anomaly Detection Model
@@ -378,20 +365,7 @@ If W_est differs from the declared weight by more than 50%, a `das_weight_anomal
 
 **Inter-vehicle features** compute the minimum distance to any other vehicle, minimum time-to-collision, maximum relative speed at closest approach, and a collision risk proxy (`max(Δv² / dist)`). A collision event flag (`iv_collision_detected`) produces Z-scores in the thousands when triggered, making collision detection effectively certain.
 
-### 8.2 Supplementary Temporal Diagnostic: CUSUM
-
-Alongside the Z-score classifier, `cusum_detector.py` implements **Page's one-sided CUSUM** on the NIS_x time series as a supplementary diagnostic (surfaced in the desktop GUI's Anomaly Intel tab). It is not part of the trajectory-level classification. The CUSUM statistic accumulates evidence that NIS_x exceeds a reference level k, and raises an alarm when it crosses a threshold h:
-
-```
-S_t = max(0,  S_{t-1} + NIS_x(t) − k)
-alarm when S_t > h
-```
-
-Default parameters k = 1.5, h = 5.0 are calibrated theoretically for χ²(1) NIS under H₀, giving an Average Run Length of ~500 steps under normal driving (~one false alarm per 20 seconds at 25 Hz).
-
-CUSUM answers a different question from the trajectory-level scorer: not "is this vehicle's overall behavior anomalous?" but **"at what point in time did something go wrong?"** A collision, hard brake, or sudden weave each produce a localized spike in NIS_x that CUSUM localizes to within a few timesteps. A gap reset rule clears the statistic if no sensor measurement arrives for more than 2 seconds, preventing prediction-only gaps from accumulating spurious evidence.
-
-### 8.3 Trajectory-Level Z-Score Scorer
+### 8.2 Trajectory-Level Z-Score Scorer
 
 The trajectory-level detector computes a per-vehicle anomaly score as the **maximum absolute Z-score across all 166 features**:
 
@@ -459,8 +433,6 @@ Physical model parameters (the Flamant–Boussinesq d₀ constant, SNR threshold
 **The anomaly threshold is a fundamental design decision, not a tuning knob.** Setting the Z-score threshold too low (e.g., 8 σ) flags heavy vehicles and stop-and-go traffic as anomalous. Too high (e.g., 25 σ) and subtle anomalies are missed. The 15.4 σ operating point, derived from the 99th percentile of the normal max-Z distribution, is the right trade-off for a system that sees many vehicles per day and must keep false positives rare.
 
 **Subtle lateral anomalies are hard with the current feature set.** Weaving and straddling were not detected reliably (they fell below the threshold in 3 of 9 scenarios). The lateral deviation features (`kin_lateral_oscillation_ratio`, `cov_das_fiber_dist_std_m`) overlap with the range of normal OU drift when the weave amplitude is moderate. This is a principled observation: with the threshold set to keep false positives at 1%, low-amplitude lateral anomalies are below the detection limit. Adding targeted lateral features, such as the dominant frequency of lateral oscillation via FFT, or lowering the threshold would improve recall at the cost of more false positives.
-
-**CUSUM and Z-score are genuinely complementary.** In the speeding scenario, the Z-score correctly identifies `kin_speed_over_limit_frac` as the dominant feature at the end of the run, while CUSUM localizes the onset of the speed exceedance to within 2–3 seconds of when the driver started accelerating. Neither alone gives the full picture: the Z-score says *that* the vehicle is anomalous, while CUSUM says *when* it became anomalous.
 
 ---
 
@@ -558,7 +530,7 @@ The filter tracked the bus through a complete stop at meter-level accuracy, well
 
 ### 12.6 Test-Guarded, Backward-Compatible Evolution
 
-**The challenge.** The pipeline evolved through versioned phases over several months. Adding the tracker, the innovation logging, and the DAS physics fields each changed some schema or behavior. Without a safety net, any of these changes could silently break earlier scenarios.
+**The challenge.** The pipeline evolved through versioned phases over several months. Adding the tracker and the DAS physics fields each changed some schema or behavior. Without a safety net, any of these changes could silently break earlier scenarios.
 
 **The solution.** A pytest suite (5 test files covering simulator core, Kalman filter, tracker, export, and geometry) guards every pipeline boundary. The key contract is **bit-exact equivalence on Phase-1 scenes**: the tracker-driven Kalman builder must produce the same position estimates as the legacy builder for simple single-segment scenarios. This is enforced by a unit test that strips the new `global_track_id` column and compares all other columns numerically. Every new release had to pass this test before merging.
 
@@ -578,7 +550,6 @@ optical-fibers-smart-cities/
 │   └── gui/app.py              #   Tkinter editor · geometry · models · config
 ├── anomaly_model/              # Read-only analytics (never imports simstudio)
 │   ├── feature_extractor.py    #   Trajectory → 166-feature fingerprint
-│   ├── cusum_detector.py       #   Temporal NIS_x onset detector (Page's CUSUM)
 │   ├── scripts/
 │   │   ├── scenario_scorer.py  #   Per-feature Z-score scoring (numpy-only)
 │   │   └── exp_scripts/        #   Experiment runners (batch simulate + extract)
