@@ -5,5 +5,9 @@ __pycache__/
 .venv/
 *.egg-info/
 
-# 11 GB of map background tiles — too large for GitHub; regenerated on demand
-maps/north_TLV/tiles_north_tlv_south/
+# north-TLV batch campaign: scenario definitions and region previews are tracked;
+# the per-run exports (5.1 GB of xlsx, 5.0 GB of plots, 96 MB of audit reports)
+# are regenerated on demand — see maps/north_TLV/TILES.md
+maps/north_TLV/tiles_north_tlv_south/**/*.xlsx
+maps/north_TLV/tiles_north_tlv_south/**/*.docx
+maps/north_TLV/tiles_north_tlv_south/**/track_*.png

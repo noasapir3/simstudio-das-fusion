@@ -1,0 +1,1155 @@
+{
+  "nodes": {
+    "n1461": {
+      "x": 439.6854263061914,
+      "y": 1268.274090556776
+    },
+    "n1137": {
+      "x": 495.89815831434595,
+      "y": 1069.602195337826
+    },
+    "n1463": {
+      "x": 433.2153031247746,
+      "y": 1262.0401990722723
+    },
+    "n871": {
+      "x": 402.70386217774904,
+      "y": 1037.787084869862
+    },
+    "n1166": {
+      "x": 500.7554665336858,
+      "y": 1080.2220747602173
+    },
+    "n870": {
+      "x": 443.6184312132301,
+      "y": 1060.6298443802357
+    },
+    "n1429": {
+      "x": 503.08508814520235,
+      "y": 1072.1625436267257
+    },
+    "n1546": {
+      "x": 518.8265394412523,
+      "y": 1016.5139301790326
+    },
+    "n869": {
+      "x": 356.7622149269553,
+      "y": 1177.5375736115172
+    },
+    "n1147": {
+      "x": 400.33651390001404,
+      "y": 1045.4013380397228
+    },
+    "n926": {
+      "x": 493.0309317152472,
+      "y": 1077.5838028284338
+    },
+    "n1460": {
+      "x": 464.90570237839563,
+      "y": 1273.2278078972251
+    },
+    "n1462": {
+      "x": 442.1376595815777,
+      "y": 1260.6821012845428
+    },
+    "n868": {
+      "x": 417.89827681966204,
+      "y": 1139.2214048803964
+    },
+    "n925": {
+      "x": 570.7950215494162,
+      "y": 1104.2448208733426
+    }
+  },
+  "segments": {
+    "seg1676": {
+      "id": "seg1676",
+      "n0": "n926",
+      "n1": "n1463",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ],
+        [
+          491.9840167404165,
+          1080.4558456904513
+        ],
+        [
+          469.9422122595928,
+          1150.2642983672088
+        ],
+        [
+          460.49168248243217,
+          1178.906803348456
+        ],
+        [
+          436.79933637398324,
+          1250.6744790623413
+        ],
+        [
+          434.4508514293575,
+          1258.155148844062
+        ],
+        [
+          433.2153031247746,
+          1262.0401990722723
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg1573": {
+      "id": "seg1573",
+      "n0": "n870",
+      "n1": "n926",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ],
+        [
+          490.267453447579,
+          1076.481739869357
+        ],
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2062": {
+      "id": "seg2062",
+      "n0": "n1137",
+      "n1": "n926",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          495.89815831434595,
+          1069.602195337826
+        ],
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg1675": {
+      "id": "seg1675",
+      "n0": "n926",
+      "n1": "n1166",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ],
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2593": {
+      "id": "seg2593",
+      "n0": "n1463",
+      "n1": "n1461",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 8.333,
+      "points": [
+        [
+          433.2153031247746,
+          1262.0401990722723
+        ],
+        [
+          433.9321097748844,
+          1263.5764080457702
+        ],
+        [
+          434.9224347517277,
+          1264.945637781918
+        ],
+        [
+          436.17684638874965,
+          1266.159020231507
+        ],
+        [
+          437.6859130200658,
+          1267.2054234453276
+        ],
+        [
+          439.6854263061914,
+          1268.274090556776
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg1572": {
+      "id": "seg1572",
+      "n0": "n870",
+      "n1": "n868",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 8.333,
+      "points": [
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ],
+        [
+          442.58094790428396,
+          1063.0566092794134
+        ],
+        [
+          417.89827681966204,
+          1139.2214048803964
+        ]
+      ],
+      "one_way": false,
+      "traffic_level": "none"
+    },
+    "seg2079": {
+      "id": "seg2079",
+      "n0": "n1147",
+      "n1": "n870",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          400.33651390001404,
+          1045.4013380397228
+        ],
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg1570": {
+      "id": "seg1570",
+      "n0": "n868",
+      "n1": "n870",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 8.333,
+      "points": [
+        [
+          417.89827681966204,
+          1139.2214048803964
+        ],
+        [
+          442.58094790428396,
+          1063.0566092794134
+        ],
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ]
+      ],
+      "one_way": false,
+      "traffic_level": "none"
+    },
+    "seg2063": {
+      "id": "seg2063",
+      "n0": "n1137",
+      "n1": "n871",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          495.89815831434595,
+          1069.602195337826
+        ],
+        [
+          492.7857083881776,
+          1068.5669240740058
+        ],
+        [
+          446.17441281937704,
+          1052.4701257054412
+        ],
+        [
+          402.70386217774904,
+          1037.787084869862
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2732": {
+      "id": "seg2732",
+      "n0": "n1546",
+      "n1": "n1137",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          518.8265394412523,
+          1016.5139301790326
+        ],
+        [
+          504.8582414366975,
+          1043.7649415249218
+        ],
+        [
+          496.7375766283255,
+          1066.7412844250175
+        ],
+        [
+          495.89815831434595,
+          1069.602195337826
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2114": {
+      "id": "seg2114",
+      "n0": "n1166",
+      "n1": "n925",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ],
+        [
+          570.7950215494162,
+          1104.2448208733426
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2115": {
+      "id": "seg2115",
+      "n0": "n1166",
+      "n1": "n1429",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ],
+        [
+          503.08508814520235,
+          1072.1625436267257
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2592": {
+      "id": "seg2592",
+      "n0": "n1462",
+      "n1": "n1166",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 13.889,
+      "points": [
+        [
+          442.1376595815777,
+          1260.6821012845428
+        ],
+        [
+          476.4500621065579,
+          1156.5872454438058
+        ],
+        [
+          480.61885867478173,
+          1142.650045196557
+        ],
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg2591": {
+      "id": "seg2591",
+      "n0": "n1461",
+      "n1": "n1460",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 8.333,
+      "points": [
+        [
+          439.6854263061914,
+          1268.274090556776
+        ],
+        [
+          448.1173361075151,
+          1270.9012305393503
+        ],
+        [
+          454.46484762439184,
+          1272.1702727349862
+        ],
+        [
+          460.28418582024085,
+          1272.8604535772695
+        ],
+        [
+          464.90570237839563,
+          1273.2278078972251
+        ]
+      ],
+      "one_way": true,
+      "traffic_level": "none"
+    },
+    "seg1571": {
+      "id": "seg1571",
+      "n0": "n869",
+      "n1": "n1147",
+      "lanes": 1,
+      "lane_width": 3.6,
+      "speed_limit_mps": 8.333,
+      "points": [
+        [
+          356.7622149269553,
+          1177.5375736115172
+        ],
+        [
+          399.4782322535953,
+          1047.99508217546
+        ],
+        [
+          400.33651390001404,
+          1045.4013380397228
+        ]
+      ],
+      "one_way": false,
+      "traffic_level": "none"
+    }
+  },
+  "lanes": {
+    "seg1676_fwd_lane1": {
+      "id": "seg1676_fwd_lane1",
+      "segment_id": "seg1676",
+      "offset_index": 0,
+      "polyline": [
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ],
+        [
+          491.9840167404165,
+          1080.4558456904513
+        ],
+        [
+          469.9422122595928,
+          1150.2642983672088
+        ],
+        [
+          460.49168248243217,
+          1178.906803348456
+        ],
+        [
+          436.79933637398324,
+          1250.6744790623413
+        ],
+        [
+          434.4508514293575,
+          1258.155148844062
+        ],
+        [
+          433.2153031247746,
+          1262.0401990722723
+        ]
+      ]
+    },
+    "seg1573_fwd_lane1": {
+      "id": "seg1573_fwd_lane1",
+      "segment_id": "seg1573",
+      "offset_index": 0,
+      "polyline": [
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ],
+        [
+          490.267453447579,
+          1076.481739869357
+        ],
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ]
+      ]
+    },
+    "seg2062_fwd_lane1": {
+      "id": "seg2062_fwd_lane1",
+      "segment_id": "seg2062",
+      "offset_index": 0,
+      "polyline": [
+        [
+          495.89815831434595,
+          1069.602195337826
+        ],
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ]
+      ]
+    },
+    "seg1675_fwd_lane1": {
+      "id": "seg1675_fwd_lane1",
+      "segment_id": "seg1675",
+      "offset_index": 0,
+      "polyline": [
+        [
+          493.0309317152472,
+          1077.5838028284338
+        ],
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ]
+      ]
+    },
+    "seg2593_fwd_lane1": {
+      "id": "seg2593_fwd_lane1",
+      "segment_id": "seg2593",
+      "offset_index": 0,
+      "polyline": [
+        [
+          433.2153031247746,
+          1262.0401990722723
+        ],
+        [
+          433.9321097748844,
+          1263.5764080457702
+        ],
+        [
+          434.9224347517277,
+          1264.945637781918
+        ],
+        [
+          436.17684638874965,
+          1266.159020231507
+        ],
+        [
+          437.6859130200658,
+          1267.2054234453276
+        ],
+        [
+          439.6854263061914,
+          1268.274090556776
+        ]
+      ]
+    },
+    "seg1572_fwd_lane1": {
+      "id": "seg1572_fwd_lane1",
+      "segment_id": "seg1572",
+      "offset_index": 0,
+      "polyline": [
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ],
+        [
+          442.58094790428396,
+          1063.0566092794134
+        ],
+        [
+          417.89827681966204,
+          1139.2214048803964
+        ]
+      ]
+    },
+    "seg2079_fwd_lane1": {
+      "id": "seg2079_fwd_lane1",
+      "segment_id": "seg2079",
+      "offset_index": 0,
+      "polyline": [
+        [
+          400.33651390001404,
+          1045.4013380397228
+        ],
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ]
+      ]
+    },
+    "seg1570_fwd_lane1": {
+      "id": "seg1570_fwd_lane1",
+      "segment_id": "seg1570",
+      "offset_index": 0,
+      "polyline": [
+        [
+          417.89827681966204,
+          1139.2214048803964
+        ],
+        [
+          442.58094790428396,
+          1063.0566092794134
+        ],
+        [
+          443.6184312132301,
+          1060.6298443802357
+        ]
+      ]
+    },
+    "seg2063_fwd_lane1": {
+      "id": "seg2063_fwd_lane1",
+      "segment_id": "seg2063",
+      "offset_index": 0,
+      "polyline": [
+        [
+          495.89815831434595,
+          1069.602195337826
+        ],
+        [
+          492.7857083881776,
+          1068.5669240740058
+        ],
+        [
+          446.17441281937704,
+          1052.4701257054412
+        ],
+        [
+          402.70386217774904,
+          1037.787084869862
+        ]
+      ]
+    },
+    "seg2732_fwd_lane1": {
+      "id": "seg2732_fwd_lane1",
+      "segment_id": "seg2732",
+      "offset_index": 0,
+      "polyline": [
+        [
+          518.8265394412523,
+          1016.5139301790326
+        ],
+        [
+          504.8582414366975,
+          1043.7649415249218
+        ],
+        [
+          496.7375766283255,
+          1066.7412844250175
+        ],
+        [
+          495.89815831434595,
+          1069.602195337826
+        ]
+      ]
+    },
+    "seg2114_fwd_lane1": {
+      "id": "seg2114_fwd_lane1",
+      "segment_id": "seg2114",
+      "offset_index": 0,
+      "polyline": [
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ],
+        [
+          570.7950215494162,
+          1104.2448208733426
+        ]
+      ]
+    },
+    "seg2115_fwd_lane1": {
+      "id": "seg2115_fwd_lane1",
+      "segment_id": "seg2115",
+      "offset_index": 0,
+      "polyline": [
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ],
+        [
+          503.08508814520235,
+          1072.1625436267257
+        ]
+      ]
+    },
+    "seg2592_fwd_lane1": {
+      "id": "seg2592_fwd_lane1",
+      "segment_id": "seg2592",
+      "offset_index": 0,
+      "polyline": [
+        [
+          442.1376595815777,
+          1260.6821012845428
+        ],
+        [
+          476.4500621065579,
+          1156.5872454438058
+        ],
+        [
+          480.61885867478173,
+          1142.650045196557
+        ],
+        [
+          500.7554665336858,
+          1080.2220747602173
+        ]
+      ]
+    },
+    "seg2591_fwd_lane1": {
+      "id": "seg2591_fwd_lane1",
+      "segment_id": "seg2591",
+      "offset_index": 0,
+      "polyline": [
+        [
+          439.6854263061914,
+          1268.274090556776
+        ],
+        [
+          448.1173361075151,
+          1270.9012305393503
+        ],
+        [
+          454.46484762439184,
+          1272.1702727349862
+        ],
+        [
+          460.28418582024085,
+          1272.8604535772695
+        ],
+        [
+          464.90570237839563,
+          1273.2278078972251
+        ]
+      ]
+    },
+    "seg1571_fwd_lane1": {
+      "id": "seg1571_fwd_lane1",
+      "segment_id": "seg1571",
+      "offset_index": 0,
+      "polyline": [
+        [
+          356.7622149269553,
+          1177.5375736115172
+        ],
+        [
+          399.4782322535953,
+          1047.99508217546
+        ],
+        [
+          400.33651390001404,
+          1045.4013380397228
+        ]
+      ]
+    }
+  },
+  "vehicles": {
+    "veh001": {
+      "id": "veh001",
+      "lane_id": "seg2114_fwd_lane1",
+      "s": 8.993313,
+      "v": 16.016387,
+      "a_long_mps2": 0.0,
+      "weight_kg": 11408.3,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 16.016387,
+      "speed_std_mps": 1.505273,
+      "speed_min_mps": 12.622257,
+      "speed_max_mps": 20.984884,
+      "target_speed_mps": 16.016387,
+      "speed_change_interval_mean_s": 6.465402,
+      "speed_change_interval_min_s": 3.219182,
+      "speed_change_interval_max_s": 9.711623,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 2.125068,
+      "max_decel_mps2": 3.057798,
+      "heading_rad": 0.330415,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh002": {
+      "id": "veh002",
+      "lane_id": "seg2732_fwd_lane1",
+      "s": 37.885779,
+      "v": 14.345497,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1177.8,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 14.345497,
+      "speed_std_mps": 1.961369,
+      "speed_min_mps": 7.761102,
+      "speed_max_mps": 18.657594,
+      "target_speed_mps": 14.345497,
+      "speed_change_interval_mean_s": 6.800371,
+      "speed_change_interval_min_s": 3.365796,
+      "speed_change_interval_max_s": 10.234946,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.52008,
+      "max_decel_mps2": 1.850387,
+      "heading_rad": 1.910529,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh003": {
+      "id": "veh003",
+      "lane_id": "seg2732_fwd_lane1",
+      "s": 9.555028,
+      "v": 14.945464,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1040.0,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 14.945464,
+      "speed_std_mps": 1.221259,
+      "speed_min_mps": 11.272967,
+      "speed_max_mps": 18.057739,
+      "target_speed_mps": 14.945464,
+      "speed_change_interval_mean_s": 7.978277,
+      "speed_change_interval_min_s": 4.115072,
+      "speed_change_interval_max_s": 11.841481,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.506457,
+      "max_decel_mps2": 2.346776,
+      "heading_rad": 2.044456,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh004": {
+      "id": "veh004",
+      "lane_id": "seg1573_fwd_lane1",
+      "s": 28.487936,
+      "v": 11.362254,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1478.6,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 11.362254,
+      "speed_std_mps": 1.674348,
+      "speed_min_mps": 6.0,
+      "speed_max_mps": 15.301936,
+      "target_speed_mps": 11.362254,
+      "speed_change_interval_mean_s": 7.558243,
+      "speed_change_interval_min_s": 4.328233,
+      "speed_change_interval_max_s": 10.788253,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.681421,
+      "max_decel_mps2": 2.309151,
+      "heading_rad": 0.32757,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh005": {
+      "id": "veh005",
+      "lane_id": "seg2062_fwd_lane1",
+      "s": 4.426309,
+      "v": 13.86958,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1409.4,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 13.86958,
+      "speed_std_mps": 1.917163,
+      "speed_min_mps": 7.950492,
+      "speed_max_mps": 18.601395,
+      "target_speed_mps": 13.86958,
+      "speed_change_interval_mean_s": 7.087698,
+      "speed_change_interval_min_s": 4.295255,
+      "speed_change_interval_max_s": 9.88014,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.490119,
+      "max_decel_mps2": 2.027399,
+      "heading_rad": 1.915669,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh006": {
+      "id": "veh006",
+      "lane_id": "seg2592_fwd_lane1",
+      "s": 102.486887,
+      "v": 11.503624,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1716.4,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 11.503624,
+      "speed_std_mps": 1.85964,
+      "speed_min_mps": 6.0,
+      "speed_max_mps": 16.331335,
+      "target_speed_mps": 11.503624,
+      "speed_change_interval_mean_s": 8.390816,
+      "speed_change_interval_min_s": 5.818024,
+      "speed_change_interval_max_s": 10.963609,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.606036,
+      "max_decel_mps2": 3.195429,
+      "heading_rad": -1.252386,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh007": {
+      "id": "veh007",
+      "lane_id": "seg1571_fwd_lane1",
+      "s": 30.320793,
+      "v": 5.889097,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1545.0,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 7.5,
+      "speed_std_mps": 1.099496,
+      "speed_min_mps": 6.0,
+      "speed_max_mps": 12.108313,
+      "target_speed_mps": 5.889097,
+      "speed_change_interval_mean_s": 7.706861,
+      "speed_change_interval_min_s": 3.593021,
+      "speed_change_interval_max_s": 11.820701,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.476267,
+      "max_decel_mps2": 3.227069,
+      "heading_rad": -1.252279,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh008": {
+      "id": "veh008",
+      "lane_id": "seg1675_fwd_lane1",
+      "s": 7.21806,
+      "v": 12.674036,
+      "a_long_mps2": 0.0,
+      "weight_kg": 860.2,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 12.674036,
+      "speed_std_mps": 2.509103,
+      "speed_min_mps": 6.0,
+      "speed_max_mps": 19.939463,
+      "target_speed_mps": 12.674036,
+      "speed_change_interval_mean_s": 8.345379,
+      "speed_change_interval_min_s": 5.79868,
+      "speed_change_interval_max_s": 10.892078,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.817142,
+      "max_decel_mps2": 2.169512,
+      "heading_rad": 0.329122,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh009": {
+      "id": "veh009",
+      "lane_id": "seg2063_fwd_lane1",
+      "s": 62.746409,
+      "v": 14.01093,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1161.4,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 14.01093,
+      "speed_std_mps": 2.650541,
+      "speed_min_mps": 6.310872,
+      "speed_max_mps": 21.0361,
+      "target_speed_mps": 14.01093,
+      "speed_change_interval_mean_s": 6.912005,
+      "speed_change_interval_min_s": 5.364535,
+      "speed_change_interval_max_s": 8.459475,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.368396,
+      "max_decel_mps2": 2.741991,
+      "heading_rad": -2.815855,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    },
+    "veh010": {
+      "id": "veh010",
+      "lane_id": "seg2114_fwd_lane1",
+      "s": 63.308584,
+      "v": 15.528368,
+      "a_long_mps2": 0.0,
+      "weight_kg": 1420.4,
+      "lateral_offset_m": 0.0,
+      "speed_mean_mps": 15.528368,
+      "speed_std_mps": 1.778331,
+      "speed_min_mps": 10.384922,
+      "speed_max_mps": 20.264539,
+      "target_speed_mps": 15.528368,
+      "speed_change_interval_mean_s": 9.15328,
+      "speed_change_interval_min_s": 6.459022,
+      "speed_change_interval_max_s": 11.847539,
+      "next_speed_change_t": 0.0,
+      "last_speed_change_t": -1000000000.0,
+      "cruise_hold_probability": 0.0,
+      "accel_response_s": 1.5,
+      "max_accel_mps2": 1.268926,
+      "max_decel_mps2": 2.467451,
+      "heading_rad": 0.330415,
+      "ax_world_mps2": 0.0,
+      "ay_world_mps2": 0.0
+    }
+  },
+  "gps": {
+    "gps18": {
+      "id": "gps18",
+      "x": 394.341324,
+      "y": 1063.573498,
+      "sigma_m": 4.0,
+      "update_hz": 1.0,
+      "radius_m": 25.0
+    },
+    "gps4": {
+      "id": "gps4",
+      "x": 494.464545,
+      "y": 1073.592999,
+      "sigma_m": 4.0,
+      "update_hz": 1.0,
+      "radius_m": 25.0
+    },
+    "gps1": {
+      "id": "gps1",
+      "x": 480.860655,
+      "y": 1115.684572,
+      "sigma_m": 4.0,
+      "update_hz": 1.0,
+      "radius_m": 25.0
+    },
+    "gps16": {
+      "id": "gps16",
+      "x": 452.107199,
+      "y": 1271.698914,
+      "sigma_m": 4.0,
+      "update_hz": 1.0,
+      "radius_m": 25.0
+    }
+  },
+  "cameras": {
+    "cam8": {
+      "id": "cam8",
+      "x": 400.336514,
+      "y": 1045.401338,
+      "heading_rad": 0.338317,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    },
+    "cam2": {
+      "id": "cam2",
+      "x": 493.030932,
+      "y": 1077.583803,
+      "heading_rad": 0.329122,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    },
+    "cam12": {
+      "id": "cam12",
+      "x": 500.755467,
+      "y": 1080.222075,
+      "heading_rad": -1.289414,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    },
+    "cam14": {
+      "id": "cam14",
+      "x": 439.685426,
+      "y": 1268.274091,
+      "heading_rad": 0.302038,
+      "fov_deg": 70.0,
+      "range_m": 80.0,
+      "update_hz": 10.0
+    }
+  },
+  "das": {
+    "das8": {
+      "id": "das8",
+      "segment_id": "seg1570",
+      "channel_start": 0,
+      "channel_end": 83,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    },
+    "das1": {
+      "id": "das1",
+      "segment_id": "seg1676",
+      "channel_start": 0,
+      "channel_end": 194,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    },
+    "das11": {
+      "id": "das11",
+      "segment_id": "seg2114",
+      "channel_start": 0,
+      "channel_end": 75,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    },
+    "das10": {
+      "id": "das10",
+      "segment_id": "seg2732",
+      "channel_start": 0,
+      "channel_end": 58,
+      "update_hz": 30.0,
+      "noise_std": 30.0,
+      "fiber_offset_m": 2.0,
+      "d0_m": 0.7
+    }
+  },
+  "boundary_exit_nodes": [
+    "n1429",
+    "n1460",
+    "n1462",
+    "n1546",
+    "n868",
+    "n869",
+    "n871",
+    "n925"
+  ]
+}
